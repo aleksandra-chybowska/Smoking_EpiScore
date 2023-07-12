@@ -1,0 +1,66 @@
+### load in the BayesR weights - do one at a time as object has same name in both files (meanBetas) ###
+
+#load("/Cluster_Filespace/Marioni_Group/Daniel_TB_Lausanne/GS_10K/bmi_smoking_pc/meanModelBMI.RData")
+load("/Cluster_Filespace/Marioni_Group/Daniel_TB_Lausanne/GS_10K/bmi_smoking_pc/meanModelSM.RData")
+
+### load LBC target file ###
+
+d = read.csv("/Cluster_Filespace/Riccardo/EWAS/LBC_methylation_w1_w4_22June2017/target_QC_age_sex_date.csv")
+
+d36_w1 <- d[d$cohort=="LBC36" & d$WAVE==1,]
+ 
+### load in methylation data ###
+ 
+load("/Cluster_Filespace/Riccardo/EWAS/LBC_methylation_w1_w4_22June2017/Beta_3525_norm_bgcorrect_0.001BetaThreshold_probefilter.RObject")
+meth = t(dat)
+meth1 = as.data.frame(meth)
+meth1$id = as.character(rownames(meth1))
+
+### subset to relevant CpG sites ###
+a = which(names(meth1) %in% names(meanBetas))
+meth2 <- meth1[,a]
+
+### scale methylation data ###
+meth3 <- scale(meth2)
+
+### replace missing values with 0 ###
+meth3[is.na(meth3)] <- 0
+
+### line up weights and CpGs ###
+b = which(names(meanBetas) %in% colnames(meth3)) 
+mean_betas <- meanBetas[b]
+meth4 <- meth3[,match(colnames(meth3), names(mean_betas))]
+meth5 <- meth4[,names(mean_betas)]
+
+### create predictors ###
+bmi_pred <- meth5 %*% mean_betas
+smk_pred <- meth5 %*% mean_betas
+
+pred <- as.data.frame(cbind(bmi_pred, smk_pred))
+names(pred) <- c("bmi_pred","smk_pred")
+pred$Basename <- rownames(pred)
+
+d36 <- merge(d36_w1, pred, by="Basename")
+
+#save(d36, file="BayesR_LBC36_w1_smk_bmi_13Dec2019.RData")
+
+library("foreign")
+pheno <- read.spss("/Cluster_Filespace/Marioni_Group/Anna/DNAm phenoAge/LBC1936_PheWAS_Ageing_Multi_omics_factor_analysis_RM_06APR2018.sav", to.data.frame=T)
+
+ph <- pheno[,c("lbc36no","fev_w1","height_w1","bmi_w1","bld_triglyc_w1","bld_hdlchol_w1","smokcat_w1")]
+ph$lbc36no <- gsub(" ", "", ph$lbc36no)
+
+
+d = merge(d36, ph, by.x="ID_raw", by.y="lbc36no")
+
+sink("Results_13Dec2019.txt")
+
+i=26
+pheno <- names(d)[26]
+null <- summary(lm(as.numeric(d[,i]) ~ age + sex, data=d))$r.squared
+full <- summary(lm(as.numeric(d[,i]) ~ age + sex + smk_pred, data=d))$r.squared
+r2 <- round(100*(full - null), 3)
+cat(pheno, " variance explained (%) is ", r2, sep=" ", "\n")
+
+
+sink()
