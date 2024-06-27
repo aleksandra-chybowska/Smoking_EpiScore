@@ -4,8 +4,9 @@ library("pROC")
 library("data.table")
 
 results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
-pheno <- read.csv(paste0(results, "lbc36_predictions_pack_years.tsv"), sep = '\t')
+pheno <- read.csv(paste0(results, "lbc36_predictions_pack_years_new_target.tsv"), sep = '\t')
 #pheno <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/sensitivity/lbc36_predictions_pack_years_sensitivity_Daniel.tsv", sep="\t")
+#pheno <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/sensitivity/lbc36_predictions_pack_years_sensitivity_Trejo.tsv", sep="\t")
 roc_to_df <- function(mod, roc) {
   ret = data.frame(
     "Model" = mod, 
@@ -45,15 +46,14 @@ summary(lm(pack_years_clean ~ age + sex + factor(py_pred_decile), data = pheno_w
 status_info <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
 pheno_w1 <- merge(pheno_w1, status_info[c("lbc36no", "smokcat_w1")], by.x = "ID", by.y = "lbc36no")
 
-pdf(paste0(results, "cor_pack_years_py_episcore_Daniel.pdf"), 
+pdf(paste0(results, "cor_pack_years_py_episcore_Trejo.pdf"), 
 width = 5, height = 4)
 #plot(twist["chr5-373240-373241"], df[,"cg05575921"])
 ggplot(pheno_w1, aes(x=pack_years_clean, y=py_pred)) +
   geom_point() +
   xlab("Pack years") +
   ylab("EpiScore") +
-  geom_smooth(method='lm', colour = "red") +
-  stat_cor(aes(label = ..r.label..), method = "spearman", cor.coef.name = "r", size = 4, label.x = 0)
+  geom_smooth(method='lm', colour = "red")
 dev.off()
 # measured pack years vs predicted pack years 
 
@@ -66,13 +66,16 @@ former_never$former <- former_never$smokcat_w1
 current_former$current <- ifelse(current_former$smokcat_w1 == 2, 1, 0)
 
 roc36_current_never <- roc(response = current_never$current, predictor = current_never$py_pred)
-auc_36 <- auc(roc36_current_never) # 0.9836
+auc_36 <- auc(roc36_current_never) # 0.9831
+proc <- MLmetrics::PRAUC(y_pred = current_never$py_pred, y_true = current_never$current)
 
 roc36_former_never <- roc(response = former_never$former, predictor = former_never$py_pred)
-auc_36_former_never <- auc(roc36_former_never) # Area under the curve: 0.8499
+auc_36_former_never <- auc(roc36_former_never) # Area under the curve: 0.8499 (if tested with new target 0.8495)
+proc_former_never <- MLmetrics::PRAUC(y_pred = former_never$py_pred, y_true = former_never$former)
 
 roc36_current_former <- roc(response = current_former$current, predictor = current_former$py_pred)
-auc_36_current_former <- auc(roc36_current_former) # Area under the curve: 0.8947
+auc_36_current_former <- auc(roc36_current_former) # Area under the curve: 0.8947 (new target: 0.8946)
+proc_current_former <- MLmetrics::PRAUC(y_pred = current_former$py_pred, y_true = current_former$current)
 
 ### compare it with models containing age and sex 
 current_never_model = glm(current ~ age + factor(sex) + py_pred, family="binomial", data=current_never)
@@ -90,7 +93,7 @@ metrics <- rbind(metrics_current_never, metrics_current_former, metrics_former_n
 
 cbPalette <- c("#D55E00", "#0072B2", "#009E73", "#CC79A7", "#F0E442" )
 
-pdf(file=paste0(results, "AUC_Daniel.pdf"), height = 4, width = 6)
+pdf(file=paste0(results, "AUC_Trejo.pdf"), height = 4, width = 6)
 
 metrics %>%
   ggplot( aes(x=1-Specificity, y=Sensitivity, group=Model, color=Model)) +

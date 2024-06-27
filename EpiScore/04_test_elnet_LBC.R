@@ -7,7 +7,7 @@ library("foreach")
 library("doParallel")
 library("glmnet")
 
-run <- "W1_W3_W4_1241_methylation_adjusted_set"
+run <- "W1_W3_W4_1256_methylation_adjusted_set_correct_target"
 results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
 
 meanimpute <- function(x) ifelse(is.na(x),mean(x,na.rm=T),x)
@@ -71,7 +71,7 @@ pheno <- merge(lbc_target_36,
 
 rownames(pheno) <- pheno$Basename
 write.table(data.frame(basename = rownames(pheno), pheno), 
-"lbc36_predictions_pack_years.tsv", sep = "\t", row.names = F, quote = F)
+"lbc36_predictions_pack_years_new_target.tsv", sep = "\t", row.names = F, quote = F)
 
 ## Test performance
 ####################################################################

@@ -38,10 +38,13 @@ meanimpute <- function(x) ifelse(is.na(x),mean(x,na.rm=T),x)
 ##########################################################################
 if (raw_data == TRUE) {
   meth <- readRDS("/Local_Data/methylation/GS_20k/mvals.rds") # p17
-  target <- readRDS("/Local_Data/methylation/GS_20k/GS20k_Targets_18869.rds")
-  meth <- meth[,target$X]
+  #target <- readRDS("/Local_Data/methylation/GS_20k/GS20k_Targets_18869.rds")
+  target <- readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/GS20k/GS20k_Targets.rds")
+
+  meth <- meth[,target$Sample_Sentrix_ID]
   meth <- as.data.frame(meth)
-  gc() # 831733  18869
+  gc() # 831733  18413
+
   #colnames - people 
 
   probes <- read.table("/Cluster_Filespace/Marioni_Group/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)$V1
@@ -60,10 +63,10 @@ if (raw_data == TRUE) {
   meth <- meth[rownames(meth) %in% weights$Name, ] #  8982 18869
   gc()
 
-saveRDS(meth, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/20k_mvals_filtered_by_weight_1e-4tmp_full_epic.RDS", compress=F)
+  saveRDS(meth, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/20k_mvals_filtered_by_weight_1e-4tmp_full_epic_new_target.RDS", compress=F)
 
 } else {
-  meth <- readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/20k_mvals_filtered_by_weight_1e-4tmp.RDS")
+  meth <- readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/20k_mvals_filtered_by_weight_1e-4tmp_full_epic_new_target.RDS")
   weights <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/weights/Joehannes_pack_years_sup_tbl3.csv")
   weights <- weights[c("Name", "Effect")] # 18760     2
   weights <- weights[which(weights$Effect < 1e-4),] # 10414     2
@@ -130,12 +133,14 @@ fit <- glmnet(meth, y, family = "gaussian", alpha = 0.5, lambda = cv$lambda.min)
 coefs <- coef(fit) # Extract coeficients  
 coefs <- as.data.frame(coefs[which(coefs!=0),]) # Remove coeficients that are 0 
 
+print(cv$lambda.min) #  0.012577
+print(dim(coefs))
 names(coefs)[1] <- "Coefficient" # Tidy naming  
 coefs$CpG_Site <- rownames(coefs) # Create cpg column
 coefs <- coefs[c(2,1)] # order, 1166  2 
 no_samples <- nrow(coefs)
 
-ret <- paste0(results, "weights_", gs_wave, "_", no_samples, "_methylation_adjusted_set.csv")
+ret <- paste0(results, "weights_", gs_wave, "_", no_samples, "_methylation_adjusted_set_correct_target.csv")
 print(ret)
 write.csv(coefs, ret, row.names = F)
 

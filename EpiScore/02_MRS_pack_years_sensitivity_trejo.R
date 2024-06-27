@@ -13,7 +13,7 @@ library("foreach")
 library("doParallel")
 library("caret")
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/EpiScore/data/")
+setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/")
 
 pheno <- read.csv('LBC/pheno_min_1072.csv')
 
@@ -22,8 +22,8 @@ pheno <- read.csv('LBC/pheno_min_1072.csv')
 ### Generate methylation score ###
 
 ### Import methylation data ###
-# file <- "sensitivity/meanModelSM.csv"
-file <- "sensitivity/Daniel.csv"
+file <- "sensitivity/meanModelSM_only_CpG.csv"
+#file <- "sensitivity/Daniel.csv"
 beta <- read.csv(file)
 rownames(beta) <- beta$CpG
 
@@ -59,7 +59,7 @@ lbc_mvals_36[is.na(lbc_mvals_36)] <- 0
 
 ## Predictions
 #################################################################
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/EpiScore/runs/sensitivity")
+setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/sensitivity")
 
 # LBC36
 pred_36 <- lbc_mvals_36 %*% beta$Beta
@@ -73,7 +73,7 @@ pheno <- merge(lbc_target_36,
             by.x = "ID", by.y = "lbc36no")
 rownames(pheno) <- pheno$Basename
 write.table(data.frame(basename = rownames(pheno), pheno), 
-"lbc36_predictions_pack_years_sensitivity_Daniel.tsv", sep = "\t", row.names = F, quote = F)
+"lbc36_predictions_pack_years_sensitivity_Trejo.tsv", sep = "\t", row.names = F, quote = F)
 
 
 ## Assess performance of predictor 
