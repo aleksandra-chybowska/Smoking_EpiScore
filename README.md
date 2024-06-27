@@ -36,7 +36,7 @@ In addition, BayesR+ version 0.1.0 (https://www.ncbi.nlm.nih.gov/pmc/articles/PM
 
 ## Installation Guide
 
-Demo package: Please install R. The demo package scripts contain installation commands, which should take care of any missing libraries. Typical install time on a "normal" computer is less than 15 minutes.
+Demo package: Please install R. The demo package scripts contain installation commands, which should take care of any missing libraries. Typical install and run time on a "normal" computer is less than 15 minutes.
 
 Other scripts: Please follow installation instructions of BayesR+ (https://github.com/ctggroup/BayesRRcmd/blob/master/README.md, version 0.1.0), 
 Genome-wide Complex Trait Analysis (GCTA) version 1.93.2 Linux (https://yanglab.westlake.edu.cn/software/gcta/) 
