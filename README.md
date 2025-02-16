@@ -3,19 +3,17 @@ Scripts accompanying "Blood- and brain-based epigenome-wide association studies 
 
 Five folders containing annotated scripts to perform the following five main analyses described in the manuscript:
 
-1. EWAS of pack years of smoking (BayesR)
+1. Brain-based EWAS of smoking (Brain)
 
-2. High resolution EWAS (TWIST)
+2. Predictor of pack years of smoking (EpiScore)
 
-3. Predictor of pack years of smoking (EpiScore)
+3. Bayesian EWAS of pack years of smoking (BayesR) and high resolution EWAS of smoking (TWIST, ONT)
 
-4. Brain-based EWAS of smoking (Brain)
-
-5. GWAS of pack years of smoking (GWAS)
+4. GWAS of pack years of smoking (GWAS)
 
 Additionally, the repository contains a demo package.
 
-6.  Demo/replication package with a small simulated dataset to demonstrate the code (Replication)
+5.  Demo/replication package with a small simulated dataset to demonstrate the code (Replication)
 
 ## System Requirements
 
