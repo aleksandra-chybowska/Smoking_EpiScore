@@ -18,14 +18,15 @@ library("glmnet")
 
 datadir <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/"
 # results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_w1_w3_w4_complete_genetic"
-results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final_test"
+# results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final_test"
+results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/only_ahrr/"
 # phenotype <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_17833_complete_genetic.csv"
 phenotype <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_17865_complete.csv"
 residualise <- TRUE
 raw_data <- FALSE
 gs_wave <- "W1_W3_W4"
 pheno <- "pack_years"
-
+only_ahrr <- TRUE
 
 m2beta <- function(m) { 
   beta <- 2^m/(2^m + 1)
@@ -75,6 +76,10 @@ if (raw_data == TRUE) {
   gc()
 }
 
+if (only_ahrr) {
+  meth = meth["cg05575921", ]
+}
+
 pack_years <- read.csv(phenotype)
 rownames(pack_years) <- pack_years$Sample_Sentrix_ID
 pack_years <- pack_years[which(pack_years$Sample_Sentrix_ID %in% colnames(meth)), ] # 17758
@@ -104,7 +109,7 @@ if(residualise == T) {
   design.resid <- model.matrix(~as.factor(sex) + age + as.factor(Set) , data=pack_years)
   fit.resid <- limma::lmFit(meth, design.resid) 
   gc()
-  meth <- limma::residuals.MArrayLM(fit.resid, meth)
+  meth2 <- limma::residuals.MArrayLM(fit.resid, meth)
   meth <- meth[!is.infinite(rowSums(meth)),]
   rm(fit.resid)
   gc() # 10350 17758
@@ -123,22 +128,19 @@ saveRDS(pack_years, paste0(results, '/pheno.RDS'), compress = F)
 ## Elnet
 ##########################################################################
 seed <- 42
-folds <- 10
 
+meth = as.data.frame(meth)
 # x <- meth
 y <- pack_years$py_clean_resid_scaled
+model <- lm(pack_years$py_clean_resid_scaled ~ meth$cg05575921)
 
-cv <- cv.glmnet(meth, y, family = "gaussian", alpha = 0.5, nfolds = folds, seed = seed) 
-fit <- glmnet(meth, y, family = "gaussian", alpha = 0.5, lambda = cv$lambda.min)
+coefs <- coef(model) # Extract coeficients  
+coefs <- as.data.frame(coefs)
 
-coefs <- coef(fit) # Extract coeficients  
-coefs <- as.data.frame(coefs[which(coefs!=0),]) # Remove coeficients that are 0 
-
-print(cv$lambda.min) #  Elnet: 0.012577, Lasso: 0.006288498, Ridge: 6.288498
-print(dim(coefs)) # Elnet: 1256, Lasso, 1246, Ridge: 16202
 names(coefs)[1] <- "Coefficient" # Tidy naming  
 coefs$CpG_Site <- rownames(coefs) # Create cpg column
 coefs <- coefs[c(2,1)] # order, 1166  2 
+coefs[2,1] = "cg05575921"
 no_samples <- nrow(coefs)
 
 ret <- paste0(results, "/weights_", gs_wave, "_", no_samples, "_methylation_adjusted_set_correct_target.csv")

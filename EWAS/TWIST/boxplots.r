@@ -4,7 +4,9 @@ library(hrbrthemes)
 library(viridis)
 library(gridExtra)
 
+setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood")
 hc = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/HC_min.RDS")
+# hippocampal methylation values
 hc_results = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/results_hc.RDS")
 ahrr = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/AHRR_record_list.R")
 
@@ -13,6 +15,7 @@ colnames(ahrr_hc) = c("beta", "smoking")
 # Brain 
 hc$smoking_cat = factor(hc$smoking_cat, labels=c("Never", "Ex", "Current"))
 ahrr_hc$smoking = factor(ahrr_hc$smoking, labels=c("Never", "Ex", "Current"))
+
 p1 = ggplot(hc, aes(x=as.factor(smoking_cat), y=cg26381592, color=smoking_cat)) + # fill=name allow to automatically dedicate a color for each group
   scale_color_manual(values=c("#C94905", "#218F60", "#155DA2")) +
   geom_point(size=0.7, alpha=0.9,show.legend = FALSE, position=position_jitter(w = 0.15, h = 0)) +
@@ -28,7 +31,10 @@ p2 = ggplot(ahrr_hc, aes(x=as.factor(smoking), y=beta, color=smoking)) + # fill=
   ylab("") +
   ylim(0.4, 1)
   # AHRR
+brain_other = hc[c("cg26381592", "smoking_cat")]
 
+write.csv(brain_other, "Figure4_source_data_other_HC.csv", row.names = F)
+write.csv(ahrr_hc, "Figure4_source_data_AHRR_HC.csv", row.names = F)
 col <- c("cg05575921", colnames(hc))
 
 smoking <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
@@ -46,8 +52,9 @@ ds <- subset(ds, WAVE == 1)
 dim(ds) # 882
 
 ds$smoking = factor(ds$smokcat_w1, labels=c("Never", "Ex", "Current"))
-head(ds[c("cg05575921", "cg26381592")])
-
+head(ds[c("cg05575921", "cg26381592", "smoking")])
+blood = ds[c("cg05575921", "cg26381592", "smoking")]
+write.csv(blood, "Figure4_source_data_Blood.csv", row.names = F)
 
 p3 = ggplot(ds, aes(x=as.factor(smoking), y=cg05575921, fill=as.factor(smoking))) + # fill=name allow to automatically dedicate a color for each group
   geom_boxplot(show.legend = FALSE, outlier.shape = NA) +

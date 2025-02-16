@@ -34,8 +34,10 @@ sig_hits = subset(hits_only, p<1e-5)
 
 setwd("U:/Ola/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/40_10_circos")
 hits = readRDS("40_10_circos_data.RDS")
-df = subset(hits, TWIST <= 1e-5)
+df = subset(hits, TWIST < 1e-5)
 
 on_illumina = subset(df, CpG %in% overlap) # 10
 on_illumina_2 = subset(df, CpG %like% "cg") # 10
 
+common = subset(df, TWIST < 1e-5 & EPIC < 1e-5)
+w3 = read.csv("U:/Ola/Lab/Smoking/twist_vs_EPIC/W3_processed.csv")

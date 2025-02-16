@@ -2,6 +2,7 @@ library("ggplot2")
 library("stringr")
 library("pROC")
 library("data.table")
+library("ggtext")
 
 results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
 pheno <- read.csv(paste0(results, "lbc36_predictions_pack_years_new_target.tsv"), sep = '\t')
@@ -93,15 +94,44 @@ metrics <- rbind(metrics_current_never, metrics_current_former, metrics_former_n
 
 cbPalette <- c("#D55E00", "#0072B2", "#009E73", "#CC79A7", "#F0E442" )
 
-pdf(file=paste0(results, "AUC_Trejo.pdf"), height = 4, width = 6)
+pdf(file=paste0(results, "AUC_Test.pdf"), height = 5, width = 5)
 
 metrics %>%
-  ggplot( aes(x=1-Specificity, y=Sensitivity, group=Model, color=Model)) +
+  ggplot(aes(x = 1 - Specificity, y = Sensitivity, group = Model, color = Model)) +
   geom_line() +
   theme_light() +
-  scale_colour_manual(values=cbPalette) +
-  theme(legend.position = "right") +
+  scale_color_manual(
+      values = cbPalette,
+      labels = c(paste("<span style='color:",  cbPalette[2],"'>Current vs Never: 0.98</span>"), 
+      paste("<span style='color:",  cbPalette[1],"'>Current vs Former: 0.90</span>"), 
+      paste("<span style='color:",  cbPalette[3],"'>Former vs Never: 0.85</span>")
+    )
+  ) +
+  guides(color = guide_legend(
+    override.aes = list(linetype = "blank", size = 0) # Removes legend lines
+  )) +
+  theme(
+    axis.title = element_text(size = 13),
+    axis.text = element_text(size = 12),
+    legend.position = c(0.75, 0.2), # Adjust position as needed
+    legend.background = element_rect(fill = "white", color = "#afa393"),
+    legend.text = element_markdown(color=cbPalette, size = 12),
+    legend.key.width = unit(0, "cm"),
+    legend.spacing.x = unit(0, "cm"),
+    legend.title = element_text(face = "bold") # Optional: bold title
+  ) +
+  labs(color = "AUC") + # Sets the legend title
   xlab("False Positive Rate (1 - Specificity)") +
-  ylab("True Postive Rate (Sensitivity)")
+  ylab("True Positive Rate (Sensitivity)")
 
 dev.off()
+
+
+# metrics %>%
+#   ggplot( aes(x=1-Specificity, y=Sensitivity, group=Model, color=Model)) +
+#   geom_line() +
+#   theme_light() +
+#   scale_colour_manual(values=cbPalette) +
+#   theme(legend.position = "right") +
+#   xlab("False Positive Rate (1 - Specificity)") +
+#   ylab("True Postive Rate (Sensitivity)")

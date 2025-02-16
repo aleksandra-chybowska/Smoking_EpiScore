@@ -14,10 +14,10 @@ library("doParallel")
 library("caret")
 
 setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/")
-run <- "wave3"
+run <- "complete"
 bayesR <- paste0("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/", run, "/")
-input <- paste0(bayesR, "summary/pack_years_4380_only_W3_meanbeta_pip.tsv")
-output <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/wave3/"
+input <- paste0(bayesR, "summary/pack_years_17865_complete_meanbeta_pip.tsv")
+output <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/complete/"
 
 ### Finished prepping pheno
 
@@ -70,6 +70,8 @@ write.table(data.frame(basename = rownames(pheno), pheno), paste0(output,
 ## Assess performance of predictor 
 #################################################################
 
+pheno = read.csv(paste0(output, "lbc36_predictions_pack_years_", run, ".tsv"), sep = "\t")
+pheno = read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/complete/lbc36_predictions_pack_years.tsv",  sep = "\t")
 # Correlation
 r_36 <- cor(pheno$pack_years_clean, pheno$py_pred, use="pairwise.complete.obs") # 0.619384
 print(paste0("Correlation all waves: ", r_36))

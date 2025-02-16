@@ -40,9 +40,9 @@ bind_rg_tables_by_gwas_type = function(ds, gwas_type) {
 
 setwd("U:/Ola/Lab/Smoking/LDSC/")
 
-rg_table = read_csv("All_merged_ldsc.csv") %>% 
+rg_table = read_csv("All_merged_ldsc_hg19.csv") %>% 
   rename(pheno_1 = "min_pheno_1", 
-         pheno_2 = "pheno 2",
+         pheno_2 = "pheno_2",
          gwas_type = "min_pheno_2")
 
 glimpse(rg_table)

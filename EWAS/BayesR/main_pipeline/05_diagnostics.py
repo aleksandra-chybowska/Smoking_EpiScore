@@ -24,7 +24,7 @@ palette = "custom2"
 def flatten(xss):
     return [x for xs in xss for x in xs]
 
-path = "//Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/complete/"
+path = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/white_blood_cells_complete/"
 trait = "pack_years_17865_complete"
 
 # output_dir = path + "plots/sex/"

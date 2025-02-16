@@ -41,6 +41,7 @@ res = read.table(largest_py, header = T)
 res$STUDY = "Pack_years_GWAS"
 min_ds = res[c("rsID", "CHROM", "EFFECT_SIZE", "POS", "PVALUE", "STUDY")]
 colnames(min_ds) = c("SNP", "CHR", "BETA", "POS", "P", "STUDY")
+subset(res, rsID == "rs117836409")
 
 #its all very slow, so I will remove all P vals that are greater than 0.05
 min_smoker_res = subset(min_smoker_res, P <= 0.05)
@@ -55,7 +56,7 @@ head(min_tpy)
 min_ds = subset(min_ds, P <= 0.05)
 colnames(min_ds) = c("SNP_raw", "CHR_raw", "BETA_raw", "POS_raw", "P_raw", "STUDY_raw")
 head(min_ds)
-
+subset(min_ds, SNP_raw == "rs117836409")
 data = merge(min_smoker_res, min_tpy, by.x="SNP_EpiSmokEr", by.y="SNP_trans_py", all=TRUE)
 data = merge(data, min_ds, by.x="SNP_EpiSmokEr", by.y="SNP_raw", all = TRUE)
 data = merge(data, min_grimage_res, by.x="SNP_EpiSmokEr", by.y="SNP_Grimage", all = TRUE)
@@ -76,7 +77,7 @@ df = data.frame("SNP" = data$SNP_EpiSmokEr,
 
 
 
-saveRDS(df, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/three/four.RDS", compress=F)
+saveRDS(df, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/no_filtering.RDS", compress=F)
 df = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/four.RDS")
 df = subset(df, Chromosome != "X")
 SNPs <-  df[
@@ -129,20 +130,29 @@ SNPs <-  df[
 SNPs = SNPs[!is.na(SNPs)]
 SNPs = SNPs[SNPs != "-"]
 
-
 colnames(df) = c("CpG", "Chromosome", "Position", "  Pack Years", "Erzurumluoglu et al.", "Grimage Pack Years")
+df_05suggestive = df %>% filter(df[,4] < 1e-5 | df[,5] < 1e-5 | df[,6] < 1e-5)
+saveRDS(df_05suggestive, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/Figure_5_source_data.RDS")
+write.csv(df_05suggestive, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/Figure_5_source_data.csv")
+
 CMplot(df,type="p",plot.type="m",LOG10=TRUE,highlight.type="l",highlight=SNPs,
        threshold=c(1e-5, 5e-8),threshold.col="black",threshold.lty=1,col=c("grey60","#4197d8"),
        signal.cex=1.2, signal.col=c("#c94905", "#ffb666"), highlight.col="grey",highlight.cex=0.7,
-       file="jpg", file.name="Font_Grimage_LargertErz_TransformedPY", ylim=c(0, 18),
+       file="pdf", file.name="Figure8", ylim=c(0, 18),
        dpi=300,file.output=TRUE,verbose=TRUE,multracks=TRUE, lab.cex=1, axis.cex=1.2, legend.cex=1.5)
 
 
-### Supplemetary Figure 8
+### Supplemetary Table 10
 
 suggestive <-  subset(df,
  df$Transformed_Pack_Years < 1e-5 |
  df$Largest < 1e-5 |
  df$Grimage < 1e-5)
 
-write_csv(suggestive, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/Grimage_suggestive_snps.csv")
+write.csv(suggestive, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/Grimage_suggestive_snps_full.csv")
+
+results_table = read_csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/Grimage_suggestive_snps_full.csv")
+results_table = results_table[-c(1,5)]
+df = results_table %>% arrange(Largest, Transformed_Pack_Years, Grimage)
+
+write.csv(df, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/Grimage_suggestive_snps_full.csv")

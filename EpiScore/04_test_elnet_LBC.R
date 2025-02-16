@@ -71,7 +71,7 @@ pheno <- merge(lbc_target_36,
 
 rownames(pheno) <- pheno$Basename
 write.table(data.frame(basename = rownames(pheno), pheno), 
-"lbc36_predictions_pack_years_new_target.tsv", sep = "\t", row.names = F, quote = F)
+"lbc36_predictions_pack_years_new_target_elnet.tsv", sep = "\t", row.names = F, quote = F)
 
 ## Test performance
 ####################################################################

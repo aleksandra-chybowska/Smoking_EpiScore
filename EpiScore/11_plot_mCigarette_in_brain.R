@@ -50,7 +50,7 @@ results = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j
 ####################################################################
 
 plots = list()
-
+data = list()
 for (i in names(tissues)){
     tissue = tissues[[i]]
 
@@ -73,7 +73,7 @@ for (i in names(tissues)){
     pred_36 = as.data.frame(pred_36)
     names(pred_36) = c("py_pred")
     pred_36["smokcat_w1"] = factor(tissue$smokcat_w1, labels=c("Never", "Ex", "Current"))
-
+    data[[i]] = pred_36
     plots[[i]] = ggplot(pred_36, aes(x=as.factor(smokcat_w1), y=py_pred, color=as.factor(smokcat_w1))) + # fill=name allow to automatically dedicate a color for each group
         scale_color_manual(values=c("#C94905", "#218F60", "#155DA2")) +
         geom_point(size=0.7, alpha=0.9,show.legend = FALSE, position=position_jitter(w = 0.15, h = 0)) +
@@ -83,6 +83,8 @@ for (i in names(tissues)){
         xlab("") +
         ylab("") +
         ylim(c(-1.5, 1.5)) 
+        
+    write.csv(data[[i]], paste0("Supplementary_Fig_4_data_", i, ".csv"), row.names=F)
 }
 
 y.grob <- textGrob("mCigarette", gp=gpar(fontsize=12), rot=90)

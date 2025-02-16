@@ -64,10 +64,38 @@ twist = as.data.frame(twist)
 # annotation
 EPICvsTWIST = read.csv(paste0(home, "/TWIST/Manual_EWAS/EPIC.hg38.manifest.tsv"), sep='\t')
 
-ahrr_twist = twist[c("chr5-373263-373264", 
-"chr5-373133-373134", 
-"chr5-373135-373136", 
-"chr5-373200-373201", 
+#### TEST FOR ONT ####
+meth = as.data.frame(meth)
+saveRDS(meth, paste0(home, "/TWIST/Manual_EWAS/48_EPIC_W3.RDS"))
+ahrr_meth = meth["cg05575921"]
+methylation_for_125860 = ahrr_meth["202915460156_R03C01", "cg05575921"] 
+# 0.5173437
+
+# Same for ONT
+coords = subset(EPICvsTWIST, Probe_ID == "cg05575921")
+#chr5  373262  373264
+bedmethyl = data.table::fread("/Marionettes_Data/Ola/nanopore_v_lmurphy2/extracted_bedgraphs/uncompressed/125860.wf_mods.no_WS.bedmethyl")
+site0 = subset(bedmethyl, V1 == "chr5" & V2 == "373261")
+site = subset(bedmethyl, V1 == "chr5" & V2 == "373262")
+site1 = subset(bedmethyl, V1 == "chr5" & V2 == "373263")
+
+#      V1     V2     V3 V4 V5 V6     V7     V8      V9 V10   V11 V12 V13 V14 V15
+# 1: chr5 373262 373263  h 14  . 373262 373263 255,0,0  14  0.00   0  11   3   0
+# 2: chr5 373262 373263  m 14  . 373262 373263 255,0,0  14 21.43   3  11   0   0
+#    V16 V17 V18
+# 1:   1   0   0
+# 2:   1   0   0
+# ONT sample 125860
+
+
+# > site1
+# Empty data.table (0 rows and 18 cols): V1,V2,V3,V4,V5,V6...
+# > site0
+# Empty data.table (0 rows and 18 cols): V1,V2,V3,V4,V5,V6...
+ahrr_twist = twist[c("chr5-373263-373264",
+"chr5-373133-373134",
+"chr5-373135-373136",
+"chr5-373200-373201",
 "chr5-373238-373239",
 "chr5-373240-373241",
 "chr5-373263-373264"

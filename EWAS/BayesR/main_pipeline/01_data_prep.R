@@ -16,9 +16,9 @@ library("doParallel")
 
 datadir <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/"
 localdir <- "/Local_Data/methylation/GS_20k/Chromosomes/" # p17
-methdir <- "methylation_W3_W1"
-filename <- "pack_years_9327_W3_W1.csv"
-type <- "W3_W1"
+methdir <- "methylation_complete"
+filename <- "pack_years_17865_complete.csv"
+type <- "complete"
 
 meanimpute <- function(x) ifelse(is.na(x),mean(x,na.rm=T),x)
 
@@ -42,7 +42,8 @@ if (check_sensitivity == TRUE) {
 # Import prepped pack_years data
 pack_years <- read.csv(paste0(datadir, filename))
 sample_size <- nrow(pack_years)
-pack_years["pack_years_log_resid"] <- resid(lm(pack_years$pack_years_clean ~ pack_years$age + factor(pack_years$sex), na.action = na.exclude)) 
+pack_years["pack_years_log_resid"] <- resid(lm(pack_years$pack_years_clean ~ 
+  pack_years$age + factor(pack_years$sex), na.action = na.exclude)) 
 
 rownames(pack_years) = pack_years$Sample_Sentrix_ID
 # Export residualized
@@ -162,6 +163,4 @@ wbc[1:ncol(wbc)]=apply(wbc[,1:ncol(wbc)],2,scale)
 
 # Write out covariate file
 write.table(x = as.matrix(wbc),
-file = paste0(datadir, "basic_pack_years_cov_", type, ".csv"),
-quote = F, sep = ",", row.names = F, col.names = F)
-
+file = paste0(datadir, "basic_pack_years_cov_", type, ".csv"), quote = F, sep = ",", row.names = F, col.names = F)

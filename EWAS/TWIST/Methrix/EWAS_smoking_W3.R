@@ -37,7 +37,7 @@ meth = m2beta(meth)
 rm(meth_w3)
 gc()
 
-pheno = read.csv(paste0(home, "TWIST/Pheno/2022-07-28-Twist_Sample_Info.csv"))
+pheno = read.csv(paste0(home, "TWIST/Pheno/2024-11-14-Twist_Sample_Info_Cleaned.csv"))
 pheno$smk = ifelse(pheno$ever_smoke == "Never", 0, 1)
 table(pheno$smk)
 pheno$methrix_id = paste0("X", pheno$Sample_Name)
@@ -47,7 +47,7 @@ summary(pheno)
 # Now subset the DNAm by phenotype file IDs 
 meth = meth[which(rownames(meth) %in% pheno$Sample_Sentrix_ID), ]
 identical(rownames(meth), pheno$Sample_Sentrix_ID) # FALSE
-
+dim(pheno)
 pheno = pheno[match(rownames(meth), pheno$Sample_Sentrix_ID), ]
 identical(rownames(meth), pheno$Sample_Sentrix_ID) # TRUE 
 
@@ -88,7 +88,7 @@ for(i in 1:ncol(meth)){
   data <- rbind(test, data)
 }
 
-write.csv(data, paste0(home, "TWIST/Manual_EWAS/W3.csv"), row.names=FALSE)
+write.csv(data, paste0(home, "TWIST/Manual_EWAS/W3_46.csv"), row.names=FALSE)
 
 
 idx = which(p < 1e-5)

@@ -1,7 +1,7 @@
-cd /Cluster_Filespace/Marioni_Group/Anna/Brain_methylation/
+#cd /Cluster_Filespace/Marioni_Group/Anna/Brain_methylation/
 
 ### Move to R ###
-
+setwd("/Cluster_Filespace/Marioni_Group/Anna/Brain_methylation/")
 dat = readRDS("Normalised_Beta_Values_danet.rds")
 descriptions = readRDS("descriptions.rds") # According to this file, this patient does not have HC data: LBC360666
 
@@ -32,7 +32,11 @@ record_list = list(
 	ba24=list(ba24$cg05575921, ba24$smokcat_w1),
 	ba2021=list(ba2021$cg05575921, ba2021$smokcat_w1)
 )
+hc_interesting = hc[c("LBC_ID", "smokcat_w1",
+	"cg09558034", "cg26381592", "cg10372485", 
+	"cg10892497", "cg08545123", "cg05575921")]
 
+saveRDS(hc_interesting, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/hc_interesting.R")
 saveRDS(record_list, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/AHRR_record_list.R", compress=F)
 
 ### AHRR plots ###

@@ -1,6 +1,6 @@
 ## Run in Terminal 
 
-cd /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/w1_w3_genetics_age_sex/multiomics/
+cd /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/white_blood_cells_complete/methylation
 ## Set up loop for any output file with a *.csv extension
 
 for i in *.csv

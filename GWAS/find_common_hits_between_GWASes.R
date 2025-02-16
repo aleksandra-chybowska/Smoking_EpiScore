@@ -7,14 +7,22 @@ binary_threshold = function(threshold, col) {
 
 setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/")
 gwas = readRDS("CMPlot_data/newest_plus_grimage.RDS")
+df = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/four.RDS")
+
 t = 5e-8
 
+# Add Erzumogulu here
 grimage = subset(gwas, Grimage < t)
+largest = subset(df, Largest < t)
+gwas_sig = subset(gwas, # nolint
+    Grimage < t | SmkInit < t | AgeSmk < t | SmkCes < t | CigsDay < t)
+
+
+
 dim(grimage)
 write_csv(grimage, "CMPlot_data/hits_overlap_grimage.csv")
 
-gwas_sig = subset(gwas, # nolint
-    Grimage < t | SmkInit < t | AgeSmk < t | SmkCes < t | CigsDay < t)
+
 
 gwas_sig[is.na(gwas_sig)] = 1
 
@@ -52,6 +60,6 @@ df = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/four
 gwas = df
 t = 5e-8
 
-largest_py = subset(gwas, Largest < t)
+largest_py = subset(df, Largest < t)
 also_grimage = subset(largest_py, Grimage < t)
 also_grimage$SNP

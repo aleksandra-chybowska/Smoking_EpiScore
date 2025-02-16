@@ -6,9 +6,9 @@ library("data.table")
 library("foreach")
 library("doParallel")
 
-path = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/wave3_age_sex/"
-methylation = "multiomics"
-priors = 3
+path = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/white_blood_cells_complete/"
+methylation = "methylation_complete"
+priors = 4
 # (1) Check each chain for convergence (rowSums of sigmas should be ~1)
 ###################################################################
 
@@ -26,8 +26,8 @@ dev.off()
 
 setwd(path)
 loop = list.files("comp/", pattern = ".csv")
-#names = read.csv(paste0("../../../data/", methylation, "/GS20k_allchrom_cpg_list.txt"), header=T)
-names = read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/multiomics/pack_years_snp_list_meth_agesex.txt")
+names = read.csv(paste0("../../../data/", methylation, "/GS20k_allchrom_cpg_list.txt"), header=T)
+#names = read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/multiomics/pack_years_snp_list_meth_agesex.txt")
 for(file in loop){
   output <- matrix(nrow = 1, ncol = 1) 
   output <- as.data.frame(output) 

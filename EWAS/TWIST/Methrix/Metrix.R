@@ -63,7 +63,7 @@ library(methrix)
 meth <- methrix::mask_methrix(meth, low_count = 2, high_quantile = 0.99) 
 
 # filter to covered sites
-meth <- methrix::remove_uncovered(meth) 
+meth <- methrix::remove_uncovered(meth)
 # -Removed 11,153,323 [37.93%] uncovered loci of 29,401,795 sites
 # -Finished in:  7.382s elapsed (6.006s cpu)
 
