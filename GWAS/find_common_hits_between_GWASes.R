@@ -5,9 +5,9 @@ binary_threshold = function(threshold, col) {
     return(ifelse(col < threshold, 1, 0))
 }
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/")
+setwd("<cluster_home_dir>/Smoking/GWAS/")
 gwas = readRDS("CMPlot_data/newest_plus_grimage.RDS")
-df = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/four.RDS")
+df = readRDS("<cluster_home_dir>/Smoking/GWAS/CMPlot_data/four.RDS")
 
 t = 5e-8
 
@@ -56,7 +56,7 @@ write_csv(grimage_common, "CMPlot_data/hits_overlap_grimage_common.csv")
 
 ### Same for Erzumulogulou
 
-df = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/four.RDS")
+df = readRDS("<cluster_home_dir>/Smoking/GWAS/CMPlot_data/four.RDS")
 gwas = df
 t = 5e-8
 

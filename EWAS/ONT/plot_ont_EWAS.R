@@ -4,7 +4,7 @@ library(dplyr)
 library(CMplot)
 library(tidyverse)
 #View(gwas_results)
-path = '/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/'
+path = '<cluster_home_dir>/TWIST/Manual_EWAS/'
 
 twist = read.csv(paste0(path, "pass10_40_46_full_EWAS_TWIST.csv"))
 twist$study = "TWIST"
@@ -19,7 +19,7 @@ table(mito_sex$p < 1e-5)
 twist$chr = as.numeric(twist$chr)
 twist = subset(twist, !is.na(chr))
 table(twist$chr)
-ont_path = "/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/"
+ont_path = "<cluster_home_dir>/ONT/EWAS/"
 ont = read.csv(paste0(ont_path, "5_40_46_full_EWAS_ONT.csv"))
 ont$study = "ONT"
 ont$chr = str_replace(ont$chr, "chr", "")
@@ -113,9 +113,9 @@ gc()
 # 4 ALGA0000022          1   292758 0.7200305 0.48887140 0.48887140
 # 5 ALGA0000046          1   747831 0.9736840 0.22096836 0.22096836
 # 6 ALGA0000047          1   761957 0.9174565 0.05753712 0.05753712
-saveRDS(all, "/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/all_5_40_46_new_annots.RDS", compress=F)
+saveRDS(all, "<cluster_home_dir>/ONT/EWAS/all_5_40_46_new_annots.RDS", compress=F)
 
-all = readRDS("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/all_5_40_46_new_annots.RDS")
+all = readRDS("<cluster_home_dir>/ONT/EWAS/all_5_40_46_new_annots.RDS")
 first5000 = all[1:5000, ]
 View(first5000)
 select_col = function(row, col1, col2, col3) {
@@ -131,7 +131,7 @@ df = data.frame("CpG" = apply(all, 1, select_col, "cpg.y", "cpg.x", "cpg"),
 )
 head(df)
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/")
+setwd("<cluster_home_dir>/ONT/EWAS/")
 saveRDS(df, "40_10_40_5_plotting_ds_new_annots_46_samples.RDS", compress=F)
 df = readRDS("40_10_40_5_plotting_ds_new_annots_46_samples.RDS")
 df = subset(df, EPIC < 0.05 | TWIST < 0.05 | ONT < 0.05)
@@ -150,7 +150,7 @@ SNPs <-  df[
 
 colnames(df) = c("CpG", "Chromosome", "Position", " EPIC", "TWIST", "  ONT")
 saveRDS(df, "40_10_40_5_46_circos_data_renamed.RDS", compress=F)
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/")
+setwd("<cluster_home_dir>/ONT/EWAS/")
 df = readRDS("40_10_40_5_46_circos_data_renamed.RDS")
 df_suggestive = df %>% filter(df[,4] < 1e-5 | df[,5] < 1e-5 | df[,6] < 1e-5)
 saveRDS(df_suggestive, "Figure_2_source_data.RDS")

@@ -3,8 +3,8 @@ library("foreach")
 library("doParallel")
 library("crayon")
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/methrix/")
-home = "/Cluster_Filespace/Marioni_Group/Ola/"
+setwd("<cluster_home_dir>/ONT/methrix/")
+home = "<cluster_home_dir>/"
 approach = "normal"
 filename = "5_32"
 

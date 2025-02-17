@@ -18,28 +18,28 @@ m2beta <- function(m) {
 
 meanimpute <- function(x) ifelse(is.na(x),mean(x,na.rm=T),x)
 
-datadir <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/"
-localdir <- "/Local_Data/methylation/GS_20k/Chromosomes/" # p17
-results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/joehannes/"
+datadir <- "<cluster_home_dir>/Smoking/Elnet_EpiScore/data/"
+localdir <- "<local_data_dir>/methylation/GS_20k/Chromosomes/" # p17
+results <- "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/joehannes/"
 
 ## Import data to test (W4)
 ##########################################################################
 
 # Alcohol data
-pack_years <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/pack_years_17865_complete.csv")
+pack_years <- read.csv("<cluster_home_dir>/Smoking/Elnet_EpiScore/data/pack_years_17865_complete.csv")
 rownames(pack_years) <- pack_years$Sample_Sentrix_ID
 pack_years <- pack_years[pack_years$Set == "wave4", ] # 8538
 
 # Wave 4 methylation to test on
-meth <- readRDS("/Local_Data/methylation/GS_20k/mvals.rds")
-target <- readRDS("/Local_Data/methylation/GS_20k/GS20k_Targets_18869.rds")
+meth <- readRDS("<local_data_dir>/methylation/GS_20k/mvals.rds")
+target <- readRDS("<local_data_dir>/methylation/GS_20k/GS20k_Targets_18869.rds")
 meth <- meth[,target$X]
 meth <- as.data.frame(meth)
 gc()
 
 # Filter meth
-probes <- read.table("/Cluster_Filespace/Marioni_Group/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)$V1
-anno <- readRDS("/Cluster_Filespace/Marioni_Group/Daniel/EPIC_AnnotationObject_df.rds")
+probes <- read.table("<filespace_marioni_group_dir>/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)$V1
+anno <- readRDS("<filespace_marioni_group_dir>/Daniel/EPIC_AnnotationObject_df.rds")
 common_anno <- anno[which(anno$Methyl450_Loci == "TRUE"),]
 
 meth <- meth[probes, pack_years$Sample_Sentrix_ID]
@@ -57,14 +57,14 @@ gc()
 ## Import predictors
 ##########################################################################
 
-coefs_j <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/weights/Joehannes_categorical_sup_tbl2.csv")
+coefs_j <- read.csv("<cluster_home_dir>/Smoking/Elnet_EpiScore/data/weights/Joehannes_categorical_sup_tbl2.csv")
 coefs_j <- coefs_j[c("Probe.ID", "Effect")]
 
-coefs_j_pack_years <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/weights/Joehannes_pack_years_sup_tbl3.csv")
+coefs_j_pack_years <- read.csv("<cluster_home_dir>/Smoking/Elnet_EpiScore/data/weights/Joehannes_pack_years_sup_tbl3.csv")
 coefs_j_pack_years <- coefs_j_pack_years[c("Name", "Effect")]
 
 # cannot test here daniels probes as they were 
-# coefs_t <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/weights/meanModelSM.csv")
+# coefs_t <- read.csv("<cluster_home_dir>/Smoking/Elnet_EpiScore/data/weights/meanModelSM.csv")
 
 rownames(coefs_j) <- coefs_j$Probe.ID #18760
 rownames(coefs_j_pack_years) <- coefs_j_pack_years$Name #18760
@@ -139,14 +139,14 @@ round(100*(full_w4_dan - null_w4), 3) # 12.176
 ## Performance across categories (non-drinkers/moderate/heavy drinkers) AUC in LBC
 ###################################################################################
 
-lbc_target <- read.table("/Cluster_Filespace/Marioni_Group/Elena/data/lbc_data/lbc_targets_3489.tsv", sep = "\t", header = T, row.names = 1)
+lbc_target <- read.table("<filespace_marioni_group_dir>/Elena/data/lbc_data/lbc_targets_3489.tsv", sep = "\t", header = T, row.names = 1)
 
 # Binarize alcohol consumption, 0 = no drinkers/light drinkers, 1 = heavy drinkers
 lbc_target$alcohol_cat_bi <- ifelse(lbc_target$alcohol_cat == "moderate-heavy_drinker", 1, 0)
 
 # Import predictions
-lbc_predictions_36 <- read.table("/Cluster_Filespace/Marioni_Group/Elena/alcohol_consumption/results/usualdrinkers_test/predictions_lbc_1936_usualdrinkerspredictor_w1w3w4_noadjustments.tsv", header = T)
-lbc_predictions_21 <- read.table("/Cluster_Filespace/Marioni_Group/Elena/alcohol_consumption/results/usualdrinkers_test/predictions_lbc_1921_usualdrinkerspredictor_w1w3w4_noadjustments.tsv", header = T)
+lbc_predictions_36 <- read.table("<filespace_marioni_group_dir>/Elena/alcohol_consumption/results/usualdrinkers_test/predictions_lbc_1936_usualdrinkerspredictor_w1w3w4_noadjustments.tsv", header = T)
+lbc_predictions_21 <- read.table("<filespace_marioni_group_dir>/Elena/alcohol_consumption/results/usualdrinkers_test/predictions_lbc_1921_usualdrinkerspredictor_w1w3w4_noadjustments.tsv", header = T)
 
 # Separate true values into 1936 and 1921
 lbc_target_36 <- lbc_target[lbc_target$cohort == "LBC36",] # 2797   24

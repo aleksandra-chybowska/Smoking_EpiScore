@@ -1,4 +1,4 @@
-setwd("C:/Users/s1654019/Documents/Ola/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/")
+setwd("<local_home_dir>/Documents/Ola/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/")
 TWIST_annots = read.csv('40_10_annotated_hits.csv')
 df = TWIST_annots[c(1:8, 11, 12, 14)]
 df_unique = unique(df)
@@ -30,5 +30,5 @@ for(cpg in sig_hits$cpg) {
 }
 novel = subset(sig_hits, in_catalog == "No")
 write.csv(sig_hits, 
-          '/Users/shirin/Documents/Edinburgh/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/40_10_annotated_hits_wide.csv', 
+          '<local_home_dir>/Documents/Edinburgh/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/40_10_annotated_hits_wide.csv', 
           row.names = F)

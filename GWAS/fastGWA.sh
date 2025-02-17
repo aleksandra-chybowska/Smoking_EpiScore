@@ -1,14 +1,14 @@
 #library(dplyr)
 
 #### Smoking as clean pack years
-# phenos = read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_17865_complete.csv")
+# phenos = read.csv("<cluster_home_dir>/Smoking/BayesRR/data/pack_years_17865_complete.csv")
 # head(phenos)
 # i = 8
 # tmp = data.frame(fid = phenos[,1],
 # 	             iid = phenos[,1], 
 # 	             phenp = phenos[,i])
 
-# setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/transformed_pack_years")
+# setwd("<cluster_home_dir>/Smoking/GWAS/transformed_pack_years")
 # write.table(tmp, file="phenotype.phen", sep='\t', row.names=F, quote=F, col.names=F)
 # write.table(phenos[,c("Sample_Name", "Sample_Name")], file="samps.txt", sep='\t', col.names=F, row.names=F, quote=F)
 

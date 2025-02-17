@@ -13,7 +13,7 @@ library("foreach")
 library("doParallel")
 library("caret")
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/")
+setwd("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/")
 
 pheno <- read.csv('LBC/pheno_min_1072.csv')
 
@@ -28,10 +28,10 @@ beta <- read.csv(file)
 rownames(beta) <- beta$CpG
 
 # Import LBC data
-lbc_target <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/targets_3489_bloodonly.rds")
+lbc_target <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/targets_3489_bloodonly.rds")
 rownames(lbc_target) <- lbc_target$Basename
 
-lbc_mvals <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
+lbc_mvals <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
 lbc_mvals <- t(lbc_mvals)
 # > dim(lbc_mvals)
 # [1]   3489 459309
@@ -59,7 +59,7 @@ lbc_mvals_36[is.na(lbc_mvals_36)] <- 0
 
 ## Predictions
 #################################################################
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/sensitivity")
+setwd("<cluster_home_dir>/Smoking/BayesR_EpiScore/runs/sensitivity")
 
 # LBC36
 pred_36 <- lbc_mvals_36 %*% beta$Beta

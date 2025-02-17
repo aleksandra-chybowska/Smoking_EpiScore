@@ -23,7 +23,7 @@
 # library(EpiSmokEr)
 
 # Set working directory
-wd = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/score_over_n/"
+wd = "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/score_over_n/"
 setwd(wd)
 
 #####################################################
@@ -48,9 +48,9 @@ na_to_mean <-function(methyl){
 #####################################
 
 # Methylation dataframe 
-data = readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds") # Of note, this example is a very truncated dataframe and most CpGs will be missing, please input your typical methylation dataframe here (all available CpGs)
+data = readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds") # Of note, this example is a very truncated dataframe and most CpGs will be missing, please input your typical methylation dataframe here (all available CpGs)
 data = as.data.frame(data, check.names=F)
-target = readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/targets_3489_bloodonly.rds")
+target = readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/targets_3489_bloodonly.rds")
 rownames(target) <- target$Basename
 target <- target[target["cohort"] == "LBC36" ,] # 2797, waves 1, 2, 3, and 4
 target <- subset(target, WAVE==1)
@@ -78,7 +78,7 @@ if(ncol(data) > nrow(data)){ # REMOVE TRUE FROM HERE
 #####################################
 
 # Read in CRP # ensure that CRP is log-transformed prior to this with outliers removed, please refer to analysis plan for further info 
-pheno <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
+pheno <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
 
 pheno = merge(target[c("ID", "Basename", "age", "cohort", "WAVE")], pheno, by.y="lbc36no", by.x="ID")
 pheno = subset(pheno, cohort == "LBC36" & WAVE == 1)

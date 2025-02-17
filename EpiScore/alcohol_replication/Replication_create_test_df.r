@@ -3,7 +3,7 @@
 #########################################################################
 
 # Set working directory
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Replication_Elena/test")
+setwd("<cluster_home_dir>/Smoking/Replication_Elena/test")
 
 #####################################################
 ######## 1. Create functions for tidying data #######
@@ -27,9 +27,9 @@ na_to_mean = function(methyl){
 #####################################
 
 # Methylation dataframe 
-data = readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds") # Of note, this example is a very truncated dataframe and most CpGs will be missing, please input your typical methylation dataframe here (all available CpGs)
+data = readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds") # Of note, this example is a very truncated dataframe and most CpGs will be missing, please input your typical methylation dataframe here (all available CpGs)
 data = as.data.frame(data, check.names=F)
-target = read.table("/Cluster_Filespace/Marioni_Group/Elena/data/lbc_data/lbc_targets_3489.tsv", sep = "\t", header = T,
+target = read.table("<filespace_marioni_group_dir>/Elena/data/lbc_data/lbc_targets_3489.tsv", sep = "\t", header = T,
  row.names = 1)
 target$Basename = rownames(target)
 target = target[target["cohort"] == "LBC36" ,] # 2797, waves 1, 2, 3, and 4
@@ -45,7 +45,7 @@ saveRDS(df, "methylation_df_example.rds")
 #####################################
 
 # Read in CRP # ensure that CRP is log-transformed prior to this with outliers removed, please refer to analysis plan for further info 
-pheno = read.table("/Cluster_Filespace/Marioni_Group/Elena/data/lbc_data/lbc_targets_3489.tsv", sep = "\t", header = T,
+pheno = read.table("<filespace_marioni_group_dir>/Elena/data/lbc_data/lbc_targets_3489.tsv", sep = "\t", header = T,
  row.names = 1)
 pheno = subset(pheno, cohort == "LBC36" & WAVE == 1)
 pheno = pheno[c("age", "sex", "alcunitsupw")]

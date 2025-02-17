@@ -3,7 +3,7 @@ library(dplyr)
 library(readxl)
 
 
-setwd("C:/Users/s1654019/Desktop/")
+setwd("<local_home_dir>/Desktop/")
 # Read in the data (assuming your file is named 'data.csv' and is comma-separated)
 
 cleaned_data_ont = read.csv("40_5_46_annotated_hits_cleaned_data.csv")

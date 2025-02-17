@@ -3,10 +3,10 @@ library(dplyr)
 library(hrbrthemes)
 library(viridis)
 
-mean_coverages = read.csv('/Users/shirin/Documents/Edinburgh/Lab/TWIST/Descriptives/Coverage.csv')
-new_vs_old = read.csv('/Users/shirin/Documents/Edinburgh/Lab/TWIST/Descriptives/16new_vs_old.csv')
+mean_coverages = read.csv('<local_home_dir>/Documents/Edinburgh/Lab/TWIST/Descriptives/Coverage.csv')
+new_vs_old = read.csv('<local_home_dir>/Documents/Edinburgh/Lab/TWIST/Descriptives/16new_vs_old.csv')
 new_vs_old = new_vs_old %>% rename("Approach" = "X")
-new_vs_old_single_run = read.csv('/Users/shirin/Documents/Edinburgh/Lab/TWIST/Descriptives/16new_vs_old_single_run.csv')
+new_vs_old_single_run = read.csv('<local_home_dir>/Documents/Edinburgh/Lab/TWIST/Descriptives/16new_vs_old_single_run.csv')
 
 # Plot
 new_vs_old %>%

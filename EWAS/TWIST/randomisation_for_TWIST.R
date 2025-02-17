@@ -1,4 +1,4 @@
-twist = read.csv("U:/Ola/Lab/Smoking/TWIST/2022-07-28-Twist_Sample_Info.csv")
+twist = read.csv("<datastore_home_dir>/Lab/Smoking/TWIST/2022-07-28-Twist_Sample_Info.csv")
 data = twist[c("Sample_Name", "age", "pair", "Case", "sex")]
 
 # Convert Group column to factor for easier filtering
@@ -56,7 +56,7 @@ if (nrow(controls) == nrow(cases)) {
   identical(pair_diffs$Control_Sex, pair_diffs$Case_Sex)
   # Output the pair differences and the maximum difference
   print(pair_diffs) # 6.67
-  write.csv(pair_diffs, "U:/Ola/Lab/Smoking/TWIST/Pair_age_differences_TWIST.csv", row.names = F)
+  write.csv(pair_diffs, "<datastore_home_dir>/Lab/Smoking/TWIST/Pair_age_differences_TWIST.csv", row.names = F)
   
   
   wrong_ids = c(38010, 165495)
@@ -67,7 +67,7 @@ if (nrow(controls) == nrow(cases)) {
   identical(pair_diffs$Control_Sex, pair_diffs$Case_Sex) # TRUE
   table(pair_diffs$Age_Difference == 0) # TRUE
   
-  write.csv(cleaned_twist, "U:/Ola/Lab/Smoking/TWIST/2024-11-14-Twist_Sample_Info_Cleaned.csv")
+  write.csv(cleaned_twist, "<datastore_home_dir>/Lab/Smoking/TWIST/2024-11-14-Twist_Sample_Info_Cleaned.csv")
   
   cat("The maximum age difference within pairs is:", max_pair_diff, "\n")
   

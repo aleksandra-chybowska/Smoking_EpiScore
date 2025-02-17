@@ -4,10 +4,10 @@ library("pROC")
 library("data.table")
 library("ggtext")
 
-results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
+results <- "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
 pheno <- read.csv(paste0(results, "lbc36_predictions_pack_years_new_target.tsv"), sep = '\t')
-#pheno <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/sensitivity/lbc36_predictions_pack_years_sensitivity_Daniel.tsv", sep="\t")
-#pheno <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/sensitivity/lbc36_predictions_pack_years_sensitivity_Trejo.tsv", sep="\t")
+#pheno <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/runs/sensitivity/lbc36_predictions_pack_years_sensitivity_Daniel.tsv", sep="\t")
+#pheno <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/runs/sensitivity/lbc36_predictions_pack_years_sensitivity_Trejo.tsv", sep="\t")
 roc_to_df <- function(mod, roc) {
   ret = data.frame(
     "Model" = mod, 
@@ -44,7 +44,7 @@ summary(lm(pack_years_clean ~ age + sex + factor(py_pred_decile), data = pheno_w
 ## ROC
 ####################################################################
 
-status_info <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
+status_info <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
 pheno_w1 <- merge(pheno_w1, status_info[c("lbc36no", "smokcat_w1")], by.x = "ID", by.y = "lbc36no")
 
 pdf(paste0(results, "cor_pack_years_py_episcore_Trejo.pdf"), 

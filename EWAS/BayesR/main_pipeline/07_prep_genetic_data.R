@@ -15,7 +15,7 @@ library("caret")
 # Script to prep files for BayesR+ (genetic)
 ############################################################################
 
-datadir <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/"
+datadir <- "<cluster_home_dir>/Smoking/BayesRR/data/"
 methdir <- "methylation_W3_W1_no_age_sex"
 gendir <- "genetics_W1_W3"
 filename <- "pack_years_9316_wave1_wave3_genetic_age_sex.csv"
@@ -37,7 +37,7 @@ meanimpute <- function(x) ifelse(is.na(x), mean(x,na.rm=T), x)
 # Import alcohol file to make sure order is the same as pheno file
 pack_years <- read.csv(paste0(datadir, filename))
 
-gen <- as.data.frame(fread("/Cluster_Filespace/Marioni_Group/GS/GS_GWAS/GS_GWAS.fam"))
+gen <- as.data.frame(fread("<filespace_marioni_group_dir>/GS/GS_GWAS/GS_GWAS.fam"))
 pack_years <- pack_years[pack_years$Sample_Name %in% gen$V2,] # 16689
 
 # Filter fam to just samples with alcohol data + methylation data
@@ -51,7 +51,7 @@ print("Prepped for PLINK!")
 print(fam_file)
 
 # In terminal 
-# cd /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/genetics_W1_W3/chr
+# cd <cluster_home_dir>/Smoking/BayesRR/data/genetics_W1_W3/chr
 # for chr in {1..22}
 # do
 # plink19 --bfile /GWAS_Source/GS_GWAS/GS20K_QC\'d/GS20K_QCpsychprotocol_SPH_04112015 --chr $chr --make-bed --out pack_years_W1_W3_chr${chr}

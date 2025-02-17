@@ -1,6 +1,6 @@
 library(tidyverse)
 
-setwd("C:/Users/s1654019/Desktop/_old")
+setwd("<local_home_dir>/Desktop/_old")
 ALSPAC = read_csv("Replication_in_ALSPAC.csv")
 
 # Custom colors

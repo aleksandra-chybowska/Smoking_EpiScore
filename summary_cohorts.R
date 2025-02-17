@@ -1,7 +1,7 @@
 library(data.table)
 library(tidyverse)
 
-setwd("U:/Ola/Lab/Smoking/Replication")
+setwd("<datastore_home_dir>/Lab/Smoking/Replication")
 
 ## ALSPAC
 ##   time_code     n mean.age sd.age n.female percent.female n.current n.former

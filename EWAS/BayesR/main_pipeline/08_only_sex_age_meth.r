@@ -1,5 +1,5 @@
 # Sex-agnostic
-datadir <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/genetics_W3/"
+datadir <- "<cluster_home_dir>/Smoking/BayesRR/data/genetics_W3/"
 filename <- "pack_years_4375_wave3_genetic_age_sex.csv"
 
 

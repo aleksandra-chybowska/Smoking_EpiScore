@@ -3,7 +3,7 @@
 ######################################
 
 ## set working directory 
-setwd("C:/Users/s1654019/Desktop/updated_smoking_jan_2019")
+setwd("<local_home_dir>/Desktop/updated_smoking_jan_2019")
 
 ## Load requisite libraries 
 library(tidyverse)

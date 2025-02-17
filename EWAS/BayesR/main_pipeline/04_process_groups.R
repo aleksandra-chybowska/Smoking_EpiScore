@@ -6,7 +6,7 @@ library("data.table")
 library("foreach")
 library("doParallel")
 
-path = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/white_blood_cells_complete/"
+path = "<cluster_home_dir>/Smoking/BayesRR/results/runs/white_blood_cells_complete/"
 methylation = "methylation_complete"
 priors = 4
 # (1) Check each chain for convergence (rowSums of sigmas should be ~1)
@@ -27,7 +27,7 @@ dev.off()
 setwd(path)
 loop = list.files("comp/", pattern = ".csv")
 names = read.csv(paste0("../../../data/", methylation, "/GS20k_allchrom_cpg_list.txt"), header=T)
-#names = read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/multiomics/pack_years_snp_list_meth_agesex.txt")
+#names = read.csv("<cluster_home_dir>/Smoking/BayesRR/data/multiomics/pack_years_snp_list_meth_agesex.txt")
 for(file in loop){
   output <- matrix(nrow = 1, ncol = 1) 
   output <- as.data.frame(output) 
@@ -269,7 +269,7 @@ for(file in loop){
 ##########################################################################################
 
 cpgs <- names$Marker
-anno <- readRDS("/Cluster_Filespace/Marioni_Group/Daniel/EPIC_AnnotationObject_df.rds")
+anno <- readRDS("<filespace_marioni_group_dir>/Daniel/EPIC_AnnotationObject_df.rds")
 anno <- anno[cpgs,c("chr","Name", "pos","UCSC_RefGene_Name", "strand")]
 
 for (i in loop) { 
@@ -374,7 +374,7 @@ if (FALSE) {
 
 	## Next, query all CpGs that are 2.5 kb < CpGs that have PIP > 0.2  
 	list1 <- list()
-	anno <- readRDS("/Cluster_Filespace/Marioni_Group/Daniel/EPIC_AnnotationObject_df.rds") # Read in annotation dataframe 
+	anno <- readRDS("<filespace_marioni_group_dir>/Daniel/EPIC_AnnotationObject_df.rds") # Read in annotation dataframe 
 	cpgs1 <- unique(pip_top1$Name) # Establish CpGs to be queried 
 	for (i in 1:length(cpgs1)) { 
 	# Extract the CpG of interest 
@@ -395,8 +395,8 @@ if (FALSE) {
 	list2$lead <- ifelse(list2$Name == list2$group, "lead", "other")
 
 	# Next, ask if those CpGs have correlation coefficient >0.5 with the lead CpG in the group 
-	meth <- readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/GS20k/mvals.rds")
-	samps <- readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/GS20k/GS20k_Targets.rds") # Subset to samples passing QC 
+	meth <- readRDS("<filespace_marioni_group_dir>/GS/GS_methylation/GS20k/mvals.rds")
+	samps <- readRDS("<filespace_marioni_group_dir>/GS/GS_methylation/GS20k/GS20k_Targets.rds") # Subset to samples passing QC 
 	meth <- meth[,which(colnames(meth) %in% samps$Sample_Sentrix_ID)]
 	# Subset to probes of interest 
 	meth1 <- meth[which(row.names(meth) %in% list2$Name),] # Subset to probes of interest 
@@ -458,7 +458,7 @@ if (FALSE) {
 
 
 	## Combine group PIP results 
-	setwd("/Cluster_Filespace/Marioni_Group/Rob/BayesR/Group_PIP/")
+	setwd("<filespace_marioni_group_dir>/Rob/BayesR/Group_PIP/")
 	# Combine files 
 	pips=list.files(".",".")
 	pips1=as.data.frame(do.call("rbind", lapply(pips, read.csv, header = T)))

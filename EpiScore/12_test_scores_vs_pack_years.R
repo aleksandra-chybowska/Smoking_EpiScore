@@ -11,12 +11,12 @@ library("stringr")
 library("pROC")
 library("data.table")
 # Set working directory
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Replication")
+setwd("<cluster_home_dir>/Smoking/Replication")
 
 #####################################################
 ######## 1. Create functions for tidying data #######
 #####################################################
-lbc_meth <- "/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/"
+lbc_meth <- "<filespace_marioni_group_dir>/LBC/LBC_methylation/"
 smoking_score <- read.csv(paste0(lbc_meth, "LBC_clock_output_3489.csv"))
 smoking_min <- smoking_score[c("Basename", "Smoking")]
 

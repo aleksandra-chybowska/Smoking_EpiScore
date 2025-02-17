@@ -3,8 +3,8 @@ library("stringr")
 library("pROC")
 library("data.table")
 
-epismoker <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/sensitivity/EpiSmokEr.csv")
-results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
+epismoker <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/sensitivity/EpiSmokEr.csv")
+results <- "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
 pheno <- read.csv(paste0(results, "lbc36_predictions_pack_years_new_target.tsv"), sep = '\t')
 pheno <- merge(pheno, epismoker[c("SampleName", "PredictedSmokingStatus")], by.x="basename", by.y="SampleName")
 pheno$status_pred <- ifelse(pheno$PredictedSmokingStatus == "Current Smoker", 2, ifelse(pheno$PredictedSmokingStatus == "Never Smoker", 0, 1))
@@ -22,7 +22,7 @@ roc_to_df <- function(mod, roc) {
 ####################################################################
 
 pheno_w1 <- pheno[pheno$WAVE == 1,] # 882
-status_info <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
+status_info <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
 pheno_w1 <- merge(pheno_w1, status_info[c("lbc36no", "smokcat_w1")], by.x = "ID", by.y = "lbc36no")
 
 current_never <- subset(pheno_w1, smokcat_w1 %in% c(0, 2))

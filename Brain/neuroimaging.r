@@ -3,9 +3,9 @@ library("stringr")
 library("data.table")
 library("foreign")
 
-results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
-path <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/"
-neuro_path <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Neuroimaging/"
+results <- "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
+path <- "<cluster_home_dir>/Smoking/BayesR_EpiScore/data/"
+neuro_path <- "<cluster_home_dir>/Smoking/Neuroimaging/"
 
 transform <- function(x) {
   transformed <- qnorm((rank(x,na.last="keep")-0.5)/sum(!is.na(x)))

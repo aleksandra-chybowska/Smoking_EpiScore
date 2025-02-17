@@ -1,8 +1,8 @@
 library(stringr)
 
 #read in methylation files (bedGraph)
-path = "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methylation/"
-convert = "/Cluster_Filespace/Marioni_Group/Ola/TWIST/RDS_methylation/"
+path = "<cluster_home_dir>/TWIST/Methylation/"
+convert = "<cluster_home_dir>/TWIST/RDS_methylation/"
 files = list.files(path, "*.bedGraph")
 
 stats = data.frame("sample" = character(),

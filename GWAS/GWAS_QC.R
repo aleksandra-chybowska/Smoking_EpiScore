@@ -1,6 +1,6 @@
 library("qqman")
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/grimage_overlap")
+setwd("<cluster_home_dir>/Smoking/GWAS/grimage_overlap")
 res = read.table("outfile.fastGWA", header = T)
 
 #this line converts each p-value to a chi-square value

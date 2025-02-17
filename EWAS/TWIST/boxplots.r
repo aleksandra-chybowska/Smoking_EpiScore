@@ -4,11 +4,11 @@ library(hrbrthemes)
 library(viridis)
 library(gridExtra)
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood")
-hc = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/HC_min.RDS")
+setwd("<cluster_home_dir>/Smoking/Brain_vs_Blood")
+hc = readRDS("<cluster_home_dir>/Smoking/Brain_vs_Blood/HC_min.RDS")
 # hippocampal methylation values
-hc_results = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/results_hc.RDS")
-ahrr = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/AHRR_record_list.R")
+hc_results = readRDS("<cluster_home_dir>/Smoking/Brain_vs_Blood/results_hc.RDS")
+ahrr = readRDS("<cluster_home_dir>/Smoking/Brain_vs_Blood/AHRR_record_list.R")
 
 ahrr_hc = as.data.frame(ahrr["hc"])
 colnames(ahrr_hc) = c("beta", "smoking")
@@ -37,11 +37,11 @@ write.csv(brain_other, "Figure4_source_data_other_HC.csv", row.names = F)
 write.csv(ahrr_hc, "Figure4_source_data_AHRR_HC.csv", row.names = F)
 col <- c("cg05575921", colnames(hc))
 
-smoking <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
-lbc_target <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/targets_3489_bloodonly.rds")
+smoking <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
+lbc_target <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/targets_3489_bloodonly.rds")
 rownames(lbc_target) <- lbc_target$Basename
 # TODO: Its not mvals but betas, the variable name here is misleading.
-lbc_mvals <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
+lbc_mvals <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
 lbc_mvals <- t(lbc_mvals)
 lbc_mvals_interesting <- as.data.frame(lbc_mvals[,which(colnames(lbc_mvals) %in% col) ])
 lbc_mvals_interesting$Sample_Sentrix_ID <- rownames(lbc_mvals_interesting)
@@ -70,7 +70,7 @@ p4 = ggplot(ds, aes(x=as.factor(smoking), y=cg26381592, fill=as.factor(smoking))
   ylab("cg26381592") +
   ylim(0, 0.04)
 
-pdf(file="/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/Plots/Grid.pdf", width = 4, height = 4)
+pdf(file="<cluster_home_dir>/Smoking/Brain_vs_Blood/Plots/Grid.pdf", width = 4, height = 4)
 
 grid.arrange(arrangeGrob(p3, p4, top = grid::textGrob("Blood", x = 0.5, hjust = 0)),
              arrangeGrob(p2, p1, top = grid::textGrob("Hippocampus", x = 0.35, hjust = 0)), ncol = 2)

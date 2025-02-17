@@ -34,7 +34,7 @@ roc_to_df <- function(mod, roc) {
 #### 1. Read in scores from Script 1 - to merge in at end  ######
 #################################################################
 
-wd = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/score_over_n_alcohol/"
+wd = "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/score_over_n_alcohol/"
 setwd(wd)
 # Read in previous scores
 pheno = read.csv("alcohol_scores_by_n.csv", check.names = F)

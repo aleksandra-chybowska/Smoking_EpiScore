@@ -2,7 +2,7 @@
 library(stringr)
 library(ggplot2)
 library(ggpubr)
-home = "/Cluster_Filespace/Marioni_Group/Ola/"
+home = "<cluster_home_dir>/"
 
 m2beta <- function(m) { 
   beta <- 2^m/(2^m + 1)
@@ -10,7 +10,7 @@ m2beta <- function(m) {
 }
 
 ## Wave 3
-meth_w3 = readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/wave3_mvals.rds")
+meth_w3 = readRDS("<filespace_marioni_group_dir>/GS/GS_methylation/wave3_mvals.rds")
 meth_w3[which(is.nan(meth_w3))] <- NA
 meth_w3[which(is.infinite(meth_w3))] <- NA
 
@@ -32,7 +32,7 @@ which(is.infinite(meth_w3))
 # cpgs_twist = read.csv(paste0(home, "TWIST/Manual_EWAS/cpgs.csv"))
 # this makes no sense since cpgs_twist[i] is a GRange
 
-# list_w3 = read.table("/Cluster_Filespace/Marioni_Group/Daniel/GS_Wave3_EWAS/w3_probes_to_keep.txt")
+# list_w3 = read.table("<filespace_marioni_group_dir>/Daniel/GS_Wave3_EWAS/w3_probes_to_keep.txt")
 # meth_w3 = meth_w3[which(row.names(meth_w3) %in% list_w3$V1),] 
 meth = t(meth_w3)
 meth = m2beta(meth)
@@ -74,7 +74,7 @@ methylation_for_125860 = ahrr_meth["202915460156_R03C01", "cg05575921"]
 # Same for ONT
 coords = subset(EPICvsTWIST, Probe_ID == "cg05575921")
 #chr5  373262  373264
-bedmethyl = data.table::fread("/Marionettes_Data/Ola/nanopore_v_lmurphy2/extracted_bedgraphs/uncompressed/125860.wf_mods.no_WS.bedmethyl")
+bedmethyl = data.table::fread("<marionettes_data_dir>/nanopore_v_lmurphy2/extracted_bedgraphs/uncompressed/125860.wf_mods.no_WS.bedmethyl")
 site0 = subset(bedmethyl, V1 == "chr5" & V2 == "373261")
 site = subset(bedmethyl, V1 == "chr5" & V2 == "373262")
 site1 = subset(bedmethyl, V1 == "chr5" & V2 == "373263")
@@ -117,7 +117,7 @@ cor(df[, "chr5-373240-373241"], df[,"cg05575921"])
 
 df$x = df[,"chr5-373240-373241"]
 df$y = df[,"cg05575921"]
-pdf("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/plots/AHRR_chr5-373240-373241_ggplot.pdf", 
+pdf("<cluster_home_dir>/TWIST/Manual_EWAS/plots/AHRR_chr5-373240-373241_ggplot.pdf", 
 width = 5, height = 4)
 #plot(twist["chr5-373240-373241"], df[,"cg05575921"])
 ggplot(df, aes(x=x, y=y, colour=ever_smoke)) +
@@ -147,7 +147,7 @@ cor(df[,"chr2-232419961-232419962"], df[,"cg21566642"])
 
 
 
-pdf("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/plots/ALPPL2_chr2-232419951-232419952.pdf")
+pdf("<cluster_home_dir>/TWIST/Manual_EWAS/plots/ALPPL2_chr2-232419951-232419952.pdf")
 plot(df[,"chr2-232419951-232419952"], df[,"cg21566642"])
 dev.off()
 
@@ -168,17 +168,17 @@ df = merge(df, f2rl3_meth, by.x="Sample_Sentrix_ID", by.y = "Sample_Sentrix_ID")
 cor(df[,"chr19-16889774-16889775"], df[,"cg03636183"])
 cor(df[,"chr19-16889741-16889742"], df[,"cg03636183"])
 
-pdf("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/plots/F2RL3_chr19-16889774-16889775.pdf")
+pdf("<cluster_home_dir>/TWIST/Manual_EWAS/plots/F2RL3_chr19-16889774-16889775.pdf")
 plot(df[,"chr19-16889774-16889775"], df[,"cg03636183"])
 dev.off()
 
-pdf("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/plots/F2RL3_chr19-16889741-16889742.pdf")
+pdf("<cluster_home_dir>/TWIST/Manual_EWAS/plots/F2RL3_chr19-16889741-16889742.pdf")
 plot(df[,"chr19-16889741-16889742"], df[,"cg03636183"])
 dev.off()
 
 df$x = df[,"chr19-16889741-16889742"]
 df$y = df[,"cg03636183"]
-pdf("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/plots/F2RL3_chr19-16889741-16889742-ggplot.pdf", 
+pdf("<cluster_home_dir>/TWIST/Manual_EWAS/plots/F2RL3_chr19-16889741-16889742-ggplot.pdf", 
 width = 5, height = 4)
 #plot(twist["chr5-373240-373241"], df[,"cg05575921"])
 ggplot(df, aes(x=x, y=y, colour=ever_smoke)) +
@@ -190,7 +190,7 @@ ggplot(df, aes(x=x, y=y, colour=ever_smoke)) +
 dev.off()
 df$x = df[,"chr5-373240-373241"]
 df$y = df[,"cg05575921"]
-pdf("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/plots/AHRR_chr5-373240-373241_ggplot.pdf", 
+pdf("<cluster_home_dir>/TWIST/Manual_EWAS/plots/AHRR_chr5-373240-373241_ggplot.pdf", 
 width = 5, height = 4)
 #plot(twist["chr5-373240-373241"], df[,"cg05575921"])
 ggplot(df, aes(x=x, y=y, colour=ever_smoke)) +

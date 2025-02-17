@@ -13,11 +13,11 @@ library("foreach")
 library("doParallel")
 library("caret")
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/")
+setwd("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/")
 run <- "complete"
-bayesR <- paste0("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/", run, "/")
+bayesR <- paste0("<cluster_home_dir>/Smoking/BayesRR/results/runs/", run, "/")
 input <- paste0(bayesR, "summary/pack_years_17865_complete_meanbeta_pip.tsv")
-output <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/complete/"
+output <- "<cluster_home_dir>/Smoking/BayesR_EpiScore/runs/complete/"
 
 ### Finished prepping pheno
 
@@ -30,10 +30,10 @@ file <- input
 beta <- read.table(file, row.names = 2, sep = "\t", header = TRUE)
 
 # Import LBC data
-lbc_target <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/targets_3489_bloodonly.rds")
+lbc_target <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/targets_3489_bloodonly.rds")
 rownames(lbc_target) <- lbc_target$Basename
 
-lbc_mvals <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
+lbc_mvals <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
 lbc_mvals <- t(lbc_mvals)
 
 # Match CpGs
@@ -71,7 +71,7 @@ write.table(data.frame(basename = rownames(pheno), pheno), paste0(output,
 #################################################################
 
 pheno = read.csv(paste0(output, "lbc36_predictions_pack_years_", run, ".tsv"), sep = "\t")
-pheno = read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/runs/complete/lbc36_predictions_pack_years.tsv",  sep = "\t")
+pheno = read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/runs/complete/lbc36_predictions_pack_years.tsv",  sep = "\t")
 # Correlation
 r_36 <- cor(pheno$pack_years_clean, pheno$py_pred, use="pairwise.complete.obs") # 0.619384
 print(paste0("Correlation all waves: ", r_36))

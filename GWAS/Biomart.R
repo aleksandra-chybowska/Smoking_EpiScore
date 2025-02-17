@@ -8,7 +8,7 @@ ensembl <- useDataset(dataset = "hsapiens_snp", mart = ensembl)
 genes <- useMart("ENSEMBL_MART_ENSEMBL")
 genes <- useDataset(dataset = "hsapiens_gene_ensembl", mart = genes)
   
-setwd("U:/Ola/Lab/Smoking/LDSC/overlap_between_hits/")
+setwd("<datastore_home_dir>/Lab/Smoking/LDSC/overlap_between_hits/")
 gwas <- read_csv("hits_overlap_grimage.csv")
 
 

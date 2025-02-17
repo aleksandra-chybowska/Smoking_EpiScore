@@ -2,7 +2,7 @@ library("ggplot2")
 library("stringr")
 library("pROC")
 library("data.table")
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Status_Score/")
+setwd("<cluster_home_dir>/Smoking/Status_Score/")
 
 results <- "results/first/"
 run <- "1300_samples"
@@ -17,9 +17,9 @@ beta = beta[-1]
 beta <- beta[2:nrow(beta),] #1299    4
 
 # Import LBC data
-lbc_target <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/targets_3489_bloodonly.rds")
+lbc_target <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/targets_3489_bloodonly.rds")
 rownames(lbc_target) <- lbc_target$Basename
-lbc_mvals <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
+lbc_mvals <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
 lbc_mvals <- t(lbc_mvals)
 # lbc_mvals <- m2beta(lbc_mvals)
 
@@ -65,7 +65,7 @@ colnames(pred)[1] = "Basename"
 lbc_target_36 = merge(lbc_target_36, pred, by="Basename")
 
 lbc_target_36$ID = as.character(lbc_target_36$ID)
-pheno <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
+pheno <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
 pheno <- merge(lbc_target_36,
 			pheno[c("lbc36no", "ever_smoke", "pack_years_clean")],
 			by.x = "ID", by.y = "lbc36no")
@@ -130,7 +130,7 @@ roc_to_df <- function(mod, roc) {
 ####################################################################
 
 pheno_w1 <- pheno[pheno$WAVE == 1,] # 882
-status_info <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
+status_info <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
 pheno_w1 <- merge(pheno_w1, status_info[c("lbc36no", "smokcat_w1")], by.x = "ID", by.y = "lbc36no")
 
 current_never <- subset(pheno_w1, smokcat_w1 %in% c(0, 2))

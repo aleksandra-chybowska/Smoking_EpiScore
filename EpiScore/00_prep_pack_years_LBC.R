@@ -13,7 +13,7 @@ library("foreach")
 library("doParallel")
 library("caret")
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/")
+setwd("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/")
 
 outlierID <- function(x, cut=4) {
   xx <- scale(x)

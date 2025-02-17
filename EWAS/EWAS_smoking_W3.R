@@ -1,6 +1,6 @@
 library(stringr)
 
-home = "/Cluster_Filespace/Marioni_Group/Ola/"
+home = "<cluster_home_dir>/"
 
 m2beta <- function(m) { 
   beta <- 2^m/(2^m + 1)
@@ -8,7 +8,7 @@ m2beta <- function(m) {
 }
 
 ## Wave 3
-meth_w3 = readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/wave3_mvals.rds")
+meth_w3 = readRDS("<filespace_marioni_group_dir>/GS/GS_methylation/wave3_mvals.rds")
 meth_w3[which(is.nan(meth_w3))] <- NA
 meth_w3[which(is.infinite(meth_w3))] <- NA
 
@@ -30,7 +30,7 @@ which(is.infinite(meth_w3))
 # cpgs_twist = read.csv(paste0(home, "TWIST/Manual_EWAS/cpgs.csv"))
 # this makes no sense since cpgs_twist[i] is a GRange
 
-# list_w3 = read.table("/Cluster_Filespace/Marioni_Group/Daniel/GS_Wave3_EWAS/w3_probes_to_keep.txt")
+# list_w3 = read.table("<filespace_marioni_group_dir>/Daniel/GS_Wave3_EWAS/w3_probes_to_keep.txt")
 # meth_w3 = meth_w3[which(row.names(meth_w3) %in% list_w3$V1),] 
 meth = t(meth_w3)
 meth = m2beta(meth)

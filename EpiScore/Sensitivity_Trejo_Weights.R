@@ -1,20 +1,20 @@
 library(ggplot2)
 library(ggpubr)
-load('/Volumes/marioni-lab/Ola/Lab/Smoking/Trejo_weights/posteriorSummarySM.RData')
+load('<datastore_home_dir>/Lab/Smoking/Trejo_weights/posteriorSummarySM.RData')
 pips = as.data.frame(sm_result$PIP)
 pips$cpg = rownames(pips)
 pips = as.data.frame(pips[-c(1:2),])
 colnames(pips) = c("value", "cpg")
 return = data.frame("cpg" = pips$cpg, "value" = pips$value)
-write.csv(return, "/Volumes/marioni-lab/Ola/Lab/Smoking/Trejo_weights/posteriorSummarySM.csv", row.names = F)
+write.csv(return, "<datastore_home_dir>/Lab/Smoking/Trejo_weights/posteriorSummarySM.csv", row.names = F)
 
 ################
 
-load("/Users/shirin/Downloads/meanModelSM.RData")
+load("<local_home_dir>/Downloads/meanModelSM.RData")
 betas = as.data.frame(meanBetas)
 betas = data.frame(cpg = rownames(betas), value = betas$meanBetas)
 dupa = as.data.frame(meanBetas)
-write.csv(betas, "/Volumes/marioni-lab/Ola/Lab/Smoking/Trejo_weights/meanModelSM.csv", row.names = F)
+write.csv(betas, "<datastore_home_dir>/Lab/Smoking/Trejo_weights/meanModelSM.csv", row.names = F)
 
 View(subset(betas, cpg %in% c("age", "Male", "cg05575921", "cg23079012", "cg11207515", "rs2853383_G", "rs2721010_G")))
 
@@ -22,10 +22,10 @@ View(subset(betas, cpg %in% c("age", "Male", "cg05575921", "cg23079012", "cg1120
 # Compare Trejo weights with model weights
 ###############
 
-betas_trejo = read.csv('/Volumes/marioni-lab/Ola/Lab/Smoking/Trejo_weights/meanModelSM.csv')
-#betas_ola = read.csv('/Users/shirin/Desktop/pack_years_17865_complete_meanbeta_pip.tsv', sep='\t') # complete
-#betas_ola = read.csv('/Users/shirin/Desktop/pack_years_17833_meanbeta_pip.tsv', sep='\t')
-betas_ola = read.csv('/Users/shirin/Desktop/pack_years_17833_meanbeta_pip.tsv', sep='\t')
+betas_trejo = read.csv('<datastore_home_dir>/Lab/Smoking/Trejo_weights/meanModelSM.csv')
+#betas_ola = read.csv('<local_home_dir>/Desktop/pack_years_17865_complete_meanbeta_pip.tsv', sep='\t') # complete
+#betas_ola = read.csv('<local_home_dir>/Desktop/pack_years_17833_meanbeta_pip.tsv', sep='\t')
+betas_ola = read.csv('<local_home_dir>/Desktop/pack_years_17833_meanbeta_pip.tsv', sep='\t')
 
 betas_ola = betas_ola[c("Name", "Mean_Beta")]
 colnames(betas_ola) = c("cpg", "value_ola")

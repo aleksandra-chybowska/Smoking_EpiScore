@@ -1,6 +1,6 @@
 library(missMethyl)
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/")
+setwd("<cluster_home_dir>/Smoking/Brain_vs_Blood/")
 
 ann <- getAnnotation(IlluminaHumanMethylation450kanno.ilmn12.hg19)
 results_hc = readRDS("results_hc.RDS")

@@ -1,6 +1,6 @@
 ## Run in Terminal 
 
-cd /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/white_blood_cells_complete/methylation
+cd <cluster_home_dir>/Smoking/BayesRR/results/runs/white_blood_cells_complete/methylation
 ## Set up loop for any output file with a *.csv extension
 
 for i in *.csv

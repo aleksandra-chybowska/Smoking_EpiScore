@@ -22,7 +22,7 @@ outlierTrim <- function(x, cut=4) {
   retval <- ifelse(id, NA, x)
 }
 
-wd = "/Volumes/marioni-lab/Ola/Lab/Smoking/plots/"
+wd = "<datastore_home_dir>/Lab/Smoking/plots/"
 
 # Glucose, cholesterol, sodium, potassium, urea, creatinine
 biochemistry = read.csv('/Volumes/marioni-lab/Generation_Scotland_data/clinical/biochemistry.csv');
@@ -37,7 +37,7 @@ smoking_PCQ = subset(smoking_PCQ, !is.na(ever_smoke)) # 23192
 smoking_PCQ = subset(smoking_PCQ, !is.na(cigs_day)) # 22930
 smoking_PCQ = subset(smoking_PCQ, !is.na(pack_years)) #22927
 
-target = readRDS("/Volumes/marioni-lab/Ola/Lab/Test_sets/GS20k_Targets.rds")
+target = readRDS("<datastore_home_dir>/Lab/Test_sets/GS20k_Targets.rds")
 
 df = merge(smoking_PCQ, target, by.x="id", by.y="Sample_Name") # 17594
 summary(df)

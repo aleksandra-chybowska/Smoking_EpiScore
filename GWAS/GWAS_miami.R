@@ -4,7 +4,7 @@ library(dplyr)
 library(data.table)
 library(CMplot)
 #View(gwas_results)
-setwd('U:/Datastore/IGMM/marioni-lab/Ola/Lab/Smoking/GWAS/')
+setwd('<datastore_home_dir>/Lab/Smoking/GWAS/')
 tpy = 'transformed_pack_years_overlap/outfile.fastGWA'
 largest_py = 'largest_gwas_pack_years/ErzurumluogluAM_30617275_discovery-stage_meta-analysis_PackYears.txt'
 epismoker = 'epismoker_overlap/outfile.fastGWA'

@@ -7,10 +7,10 @@ library("foreach")
 library("doParallel")
 library("glmnet")
 
-datadir <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Status_Score/data/"
-results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Status_Score/results/unpaired/"
-phenotype <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_17865_complete.csv"
-ever_smoke <- "/Cluster_Filespace/Marioni_Group/GS/GS_dataset/updated_smoking_jan_2019/ever_smoke.csv"
+datadir <- "<cluster_home_dir>/Smoking/Status_Score/data/"
+results <- "<cluster_home_dir>/Smoking/Status_Score/results/unpaired/"
+phenotype <- "<cluster_home_dir>/Smoking/BayesRR/data/pack_years_17865_complete.csv"
+ever_smoke <- "<filespace_marioni_group_dir>/GS/GS_dataset/updated_smoking_jan_2019/ever_smoke.csv"
 residualise <- TRUE
 raw_data <- TRUE
 gs_wave <- "W1_W3_W4"
@@ -26,42 +26,42 @@ meanimpute <- function(x) ifelse(is.na(x),mean(x,na.rm=T),x)
 ## Import data
 ##########################################################################
 if (raw_data == TRUE) {
-  meth <- readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/GS20k/mvals.rds") # p17
-  target <- readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/GS20k/GS20k_Targets.rds")
+  meth <- readRDS("<filespace_marioni_group_dir>/GS/GS_methylation/GS20k/mvals.rds") # p17
+  target <- readRDS("<filespace_marioni_group_dir>/GS/GS_methylation/GS20k/GS20k_Targets.rds")
 
   meth <- subset(meth, colnames(meth) %in% target$Sample_Sentrix_ID)
   gc() # 831733  18413
 
-  probes <- read.table("/Cluster_Filespace/Marioni_Group/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)$V1
+  probes <- read.table("<filespace_marioni_group_dir>/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)$V1
   meth <- subset(meth, rownames(meth) %in% probes) # 752722  18869
   gc()
 
   # Pre-filtering by weight
-  weights <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/weights/Joehannes_pack_years_sup_tbl3.csv")
+  weights <- read.csv("<cluster_home_dir>/Smoking/Elnet_EpiScore/data/weights/Joehannes_pack_years_sup_tbl3.csv")
   print(dim(weights))
   weights <- weights[c("Name", "P.value")] # 18760     2 # Used to say "effect" here
   #weights <- weights[which(weights$P.value < 1e-4),] # 10414     2
   meth <- subset(meth, rownames(meth) %in% weights$Name) #  8982 18869
   gc()
 
-  saveRDS(meth, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Status_Score/data/GS20k_mvals_filtered_by_weight.RDS", compress=F)
+  saveRDS(meth, "<cluster_home_dir>/Smoking/Status_Score/data/GS20k_mvals_filtered_by_weight.RDS", compress=F)
 
 } else {
-  target <- readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/GS20k/GS20k_Targets.rds")
-  meth <- readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Status_Score/data/GS20k_mvals_filtered_by_weight.RDS")
+  target <- readRDS("<filespace_marioni_group_dir>/GS/GS_methylation/GS20k/GS20k_Targets.rds")
+  meth <- readRDS("<cluster_home_dir>/Smoking/Status_Score/data/GS20k_mvals_filtered_by_weight.RDS")
 }
 
 ever_smoke <- read.csv(ever_smoke) # 24078
 pheno <- merge(target, ever_smoke, by.x="Sample_Name", by.y="Sample_Name")
 pheno = subset(pheno, ever_smoke != 5)
 
-pdf("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Status_Score/results/first/ever_smoke.pdf")
+pdf("<cluster_home_dir>/Smoking/Status_Score/results/first/ever_smoke.pdf")
 hist(pheno$ever_smoke)
 dev.off()
 
 pheno$status = ifelse(pheno$ever_smoke == 1, 1, ifelse(pheno$ever_smoke == 4, 3, 2))
 rownames(pheno) = pheno$Sample_Sentrix_ID
-write.csv(pheno, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Status_Score/data/ever_smoke_17730.csv")
+write.csv(pheno, "<cluster_home_dir>/Smoking/Status_Score/data/ever_smoke_17730.csv")
 pheno <- pheno[which(pheno$Sample_Sentrix_ID %in% colnames(meth)), ] # 17730
 
 sample_size <- nrow(pheno)

@@ -4,7 +4,7 @@ library(readxl)
 
 ### Prep the longer file
 
-setwd("U:/Ola/Lab/Smoking/ONT")
+setwd("<datastore_home_dir>/Lab/Smoking/ONT")
 # file = read_xlsx("ONT_final_summary.xlsx")
 # ds = separate_longer_delim(file, cols = "Native Barcode(s)", delim = "_")
 # write.csv(ds, "ONT_final_summary_longer.csv", row.names = F)

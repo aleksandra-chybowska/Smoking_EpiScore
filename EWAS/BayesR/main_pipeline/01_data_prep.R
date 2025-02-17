@@ -14,8 +14,8 @@ library("doParallel")
 # Script to prep files for BayesR+ (methylation)
 ############################################################################
 
-datadir <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/"
-localdir <- "/Local_Data/methylation/GS_20k/Chromosomes/" # p17
+datadir <- "<cluster_home_dir>/Smoking/BayesRR/data/"
+localdir <- "<local_data_dir>/methylation/GS_20k/Chromosomes/" # p17
 methdir <- "methylation_complete"
 filename <- "pack_years_17865_complete.csv"
 type <- "complete"
@@ -67,7 +67,7 @@ cl <- makeCluster(3, outfile=paste0(datadir, "parallel_test.txt")) # Let's start
 registerDoParallel(cl)
 
 # Iterate per chromosome
-probes <- read.table("/Cluster_Filespace/Marioni_Group/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)
+probes <- read.table("<filespace_marioni_group_dir>/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)
 foreach(i=1:22, .packages = "data.table") %dopar% { 
   print(paste0("Working on chromosome ",i))
 

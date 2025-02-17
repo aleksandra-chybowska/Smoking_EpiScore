@@ -5,11 +5,11 @@ library(gridExtra)
 library(dplyr)
 
 # brain
-hc = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/HC_min.RDS")
-hc_interesting = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/hc_interesting.R")
+hc = readRDS("<cluster_home_dir>/Smoking/Brain_vs_Blood/HC_min.RDS")
+hc_interesting = readRDS("<cluster_home_dir>/Smoking/Brain_vs_Blood/hc_interesting.R")
 
-hc_results = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/results_hc.RDS")
-ahrr = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/AHRR_record_list.R")
+hc_results = readRDS("<cluster_home_dir>/Smoking/Brain_vs_Blood/results_hc.RDS")
+ahrr = readRDS("<cluster_home_dir>/Smoking/Brain_vs_Blood/AHRR_record_list.R")
 ahrr_hc = as.data.frame(ahrr["hc"])
 colnames(ahrr_hc) = c("beta", "smoking")
 
@@ -18,11 +18,11 @@ identical(hc_interesting$cg05575921, ahrr_hc$beta) # TRUE
 # OK to use hc_interesting for hc data
 
 # read in blood LBC data (36?)
-smoking <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
-lbc_target <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/targets_3489_bloodonly.rds")
+smoking <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
+lbc_target <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/targets_3489_bloodonly.rds")
 rownames(lbc_target) <- lbc_target$Basename
 # TODO: Its not mvals but betas, the variable name here is misleading.
-lbc_mvals <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
+lbc_mvals <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
 lbc_mvals <- t(lbc_mvals)
 col <- colnames(hc_interesting)
 lbc_mvals_interesting <- as.data.frame(lbc_mvals[,which(colnames(lbc_mvals) %in% col) ])
@@ -50,7 +50,7 @@ plotting <- plotting %>%
   filter(WAVE == max(WAVE)) %>%
   ungroup()
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/")
+setwd("<cluster_home_dir>/Smoking/Brain_vs_Blood/")
 write.csv(plotting, "Supplemental_Figure_3_Source_Data.csv", row.names = F)
 
 r_cor = cor(x = plotting$blood_cg05575921, y = plotting$hc_cg05575921, method = "pearson")
@@ -74,7 +74,7 @@ plot2 = ggplot(plotting, aes(x = blood_cg26381592, y = hc_cg26381592)) +
        x = NULL,
        y = NULL) +
   theme_minimal()  # Optional theme for a clean look
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/")
+setwd("<cluster_home_dir>/Smoking/Brain_vs_Blood/")
 pdf("Scatterplot_hc_vs_blood.pdf", width = 8, height = 4)
 joined =  plot_grid(plot1, plot2,
           labels = c("A", "B"),

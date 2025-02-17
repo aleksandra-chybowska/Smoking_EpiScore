@@ -1,9 +1,9 @@
 library(stringr)
 
 #read in methylation file
-path = "/Users/shirin/Documents/Edinburgh/Lab/TWIST/Methylation/"
+path = "<local_home_dir>/Documents/Edinburgh/Lab/TWIST/Methylation/"
 files = list.files(path, "*.bedGraph")
-target = readRDS('/Users/shirin/Documents/Edinburgh/Lab/Methylation_test_sets/GS20k_Targets.rds')
+target = readRDS('<local_home_dir>/Documents/Edinburgh/Lab/Methylation_test_sets/GS20k_Targets.rds')
 
 full_w1 = nrow(read.csv(paste0(path, '../rows_w1.csv')))
 full_w3 = nrow(read.csv(paste0(path, '../rows_w3.csv')))

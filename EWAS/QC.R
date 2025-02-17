@@ -3,10 +3,10 @@ library(tidyverse)
 library(QCEWAS)
 library(data.table)
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/EWAS")
+setwd("<cluster_home_dir>/Smoking/EWAS")
 
-ont = read.csv("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/5_40_46_full_EWAS_ONT.csv") # need to update with full pvals
-path = '/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/'
+ont = read.csv("<cluster_home_dir>/ONT/EWAS/5_40_46_full_EWAS_ONT.csv") # need to update with full pvals
+path = '<cluster_home_dir>/TWIST/Manual_EWAS/'
 
 twist = read.csv(paste0(path, "pass10_40_46_full_EWAS_TWIST.csv"))
 epic = read.csv(paste0(path, 'W3_46_processed_new_annots.csv'))

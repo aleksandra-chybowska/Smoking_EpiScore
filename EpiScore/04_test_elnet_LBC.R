@@ -8,7 +8,7 @@ library("doParallel")
 library("glmnet")
 
 run <- "W1_W3_W4_1256_methylation_adjusted_set_correct_target"
-results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
+results <- "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
 
 meanimpute <- function(x) ifelse(is.na(x),mean(x,na.rm=T),x)
 
@@ -24,9 +24,9 @@ beta <- beta[2:nrow(beta),] #1165    3
 #intercept_all <- coefs_all[1,2]
 
 # Import LBC data
-lbc_target <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/targets_3489_bloodonly.rds")
+lbc_target <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/targets_3489_bloodonly.rds")
 rownames(lbc_target) <- lbc_target$Basename
-lbc_mvals <- readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
+lbc_mvals <- readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds")
 lbc_mvals <- t(lbc_mvals)
 # lbc_mvals <- m2beta(lbc_mvals)
 
@@ -64,7 +64,7 @@ pred_36 <- as.data.frame(pred_36)
 names(pred_36) <- c("py_pred")
 lbc_target_36["py_pred"] <- pred_36["py_pred"]
 lbc_target_36$ID = as.character(lbc_target_36$ID)
-pheno <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
+pheno <- read.csv("<cluster_home_dir>/Smoking/BayesR_EpiScore/data/LBC/pheno_min_1072.csv")
 pheno <- merge(lbc_target_36,
             pheno[c("lbc36no", "ever_smoke", "pack_years_clean")],
             by.x = "ID", by.y = "lbc36no")

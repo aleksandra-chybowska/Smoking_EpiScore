@@ -3,7 +3,7 @@ library(data.table)
 library(bigsnpr)
 library(tidyverse)
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/EUR_stratified")
+setwd("<cluster_home_dir>/Smoking/GWAS/EUR_stratified")
 # read in Sauders
 
 files = c("GSCAN_AgeSmk_2022_GWAS_SUMMARY_STATS_EUR.txt",
@@ -11,8 +11,8 @@ files = c("GSCAN_AgeSmk_2022_GWAS_SUMMARY_STATS_EUR.txt",
   "GSCAN_SmkCes_2022_GWAS_SUMMARY_STATS_EUR.txt",
   "GSCAN_SmkInit_2022_GWAS_SUMMARY_STATS_EUR.txt")
 
-out <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/liftOver/"
-liftover_path <- "/home/s1654019/micromamba/envs/openssl/bin/liftOver"
+out <- "<cluster_home_dir>/Smoking/GWAS/liftOver/"
+liftover_path <- "<local_home_dir>/micromamba/envs/openssl/bin/liftOver"
 
 for (f in files) {
   file <- fread(f)

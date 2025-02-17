@@ -16,7 +16,7 @@ import math
 # For VSCode + cluster: export PATH=/home/ebernab3/anaconda3/bin:$PATH
 
 font = "Galvji"
-path = '/Cluster_Filespace/Marioni_Group/Elena/other/fonts/Galvji/Galvji-01.ttf'
+path = '<filespace_marioni_group_dir>/Elena/other/fonts/Galvji/Galvji-01.ttf'
 fe = matplotlib.font_manager.FontEntry(
     fname= path,
     name=font)

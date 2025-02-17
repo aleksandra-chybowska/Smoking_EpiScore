@@ -1,7 +1,7 @@
 library(tidyverse)
 
 # read in the BayesR results 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Annotations")
+setwd("<cluster_home_dir>/TWIST/Annotations")
 illumina = read.csv("infinium-methylationepic-v-1-0-b5-manifest-file-from-Illumina.csv")
 cat = read.csv('smoking.tsv', sep='\t')
 illumina = illumina[c("Name", "CHR_hg38", "Start_hg38", "End_hg38", "Strand_hg38")]

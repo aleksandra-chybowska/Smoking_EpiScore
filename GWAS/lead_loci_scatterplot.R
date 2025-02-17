@@ -6,7 +6,7 @@ library(ggplot2)
 
 # get GWAS data
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/")
+setwd("<cluster_home_dir>/Smoking/GWAS/")
 grimage = read.table("grimage_overlap/outfile.fastGWA", header = T)
 py = read.table("transformed_pack_years_overlap/outfile.fastGWA", header = T)
 
@@ -35,7 +35,7 @@ r_cor <- cor(gwas_data$Beta_grimage, gwas_data$Beta_py,
   method = "pearson", use="complete.obs")
 
 
-pdf("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/plots/Grimage_DNAm_vs_pack_years_scatterplot_r.pdf",
+pdf("<cluster_home_dir>/Smoking/GWAS/plots/Grimage_DNAm_vs_pack_years_scatterplot_r.pdf",
 width = 5, height = 5)
 # Plot
 # Create the ggplot scatterplot with a line of best fit

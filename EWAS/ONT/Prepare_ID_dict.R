@@ -1,5 +1,5 @@
 library("tidyverse")
-setwd("U:/Ola/Lab/Smoking/ONT/")
+setwd("<datastore_home_dir>/Lab/Smoking/ONT/")
 dict = read_csv("2022-07-28-Twist_Sample_Info.csv")
 files = read_csv("Paths_and_IDS.csv")
 

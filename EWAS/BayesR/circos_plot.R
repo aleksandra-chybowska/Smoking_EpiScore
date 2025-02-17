@@ -4,7 +4,7 @@ library(dplyr)
 library(CMplot)
 library(tidyverse)
 #View(gwas_results)
-path = 'U:/Datastore/IGMM/marioni-lab/Ola/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/'
+path = '<datastore_home_dir>/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/'
 
 source = '40_10_EWAS'
 twist = readRDS(paste0(path, '40_10_EWAS.RDS'))
@@ -104,7 +104,7 @@ df = data.frame("CpG" = ifelse(is.na(all$cpg.y), all$cpg.x, all$cpg.y),
                 )
 
 
-setwd("U:/Datastore/IGMM/marioni-lab/Ola/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/40_10_circos")
+setwd("<datastore_home_dir>/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/40_10_circos")
 saveRDS(df, "40_10_circos_data.RDS", compress=F)
 df = subset(df, EPIC < 0.05 | TWIST < 0.05)
 

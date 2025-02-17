@@ -16,5 +16,5 @@ sites = subset(annots, Name %in% cpgs)
 min_sites = sites[c(1:4, 19, 24, 26, 32)]
 min_sites = min_sites[match(cpgs, min_sites$Name),]
 View(min_sites)
-write.csv(min_sites, "U:/Datastore/IGMM/marioni-lab/Ola/Lab/Smoking/Brain/annots.csv")
-saveRDS(min_sites, "U:/Datastore/IGMM/marioni-lab/Ola/Lab/Smoking/Brain/annots.RDS")
+write.csv(min_sites, "<datastore_home_dir>/Lab/Smoking/Brain/annots.csv")
+saveRDS(min_sites, "<datastore_home_dir>/Lab/Smoking/Brain/annots.RDS")

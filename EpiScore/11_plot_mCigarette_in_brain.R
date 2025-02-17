@@ -17,18 +17,18 @@ get_title = function(index) {
     }
 }
 
-setwd("/Cluster_Filespace/Marioni_Group/Anna/Brain_methylation/")
+setwd("<filespace_marioni_group_dir>/Anna/Brain_methylation/")
 dat = readRDS("Normalised_Beta_Values_danet.rds")
 descriptions = readRDS("descriptions.rds") # According to this file, this patient does not have HC data: LBC360666
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore_tissues/LBC")
+setwd("<cluster_home_dir>/Smoking/Elnet_EpiScore_tissues/LBC")
 dat = t(dat)
 identical(rownames(descriptions), rownames(dat))
 
 dat = merge(descriptions, dat, by="row.names")
 
 # I need to change this into pack years from my previous files for testing against this metric
-ph36 = read.spss("/Cluster_Filespace/Marioni_Group/Riccardo/Cognitive_EWAS_GS_LBC/LBC1936_BloodBasedEWASofCognitiveAbilities_RM_06MAY2021.sav", to.data.frame=T, use.value.labels=F)
+ph36 = read.spss("<filespace_marioni_group_dir>/Riccardo/Cognitive_EWAS_GS_LBC/LBC1936_BloodBasedEWASofCognitiveAbilities_RM_06MAY2021.sav", to.data.frame=T, use.value.labels=F)
 ph361 = ph36[,c(1,12)]
 names(ph361)[1] = "LBC_ID"
 
@@ -44,7 +44,7 @@ tissues = list(
 )
 
 run = "W1_W3_W4_1256_methylation_adjusted_set_correct_target"
-results = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
+results = "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/j_1e-4_pack_years_20k_final/"
 
 ## Predictions in LBC
 ####################################################################

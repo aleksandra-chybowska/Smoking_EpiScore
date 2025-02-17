@@ -4,7 +4,7 @@ library(dplyr)
 library(CMplot)
 library(tidyverse)
 #View(gwas_results)
-path = 'U:/Ola/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/'
+path = '<datastore_home_dir>/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/'
 
 source = '40_10_EWAS'
 twist = readRDS(paste0(path, '40_10_EWAS.RDS'))
@@ -119,7 +119,7 @@ gc()
 # 5 ALGA0000046          1   747831 0.9736840 0.22096836 0.22096836
 # 6 ALGA0000047          1   761957 0.9174565 0.05753712 0.05753712
 saveRDS(all, "all.RDS", compress=F)
-all  = readRDS("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/ont/all.RDS")
+all  = readRDS("<cluster_home_dir>/TWIST/Manual_EWAS/ont/all.RDS")
 first5000 = all[1:5000, ]
 
 select_col = function(row, col1, col2, col3) {
@@ -135,9 +135,9 @@ df = data.frame("CpG" = apply(all, 1, select_col, "cpg.x", "cpg.y", "cpg"),
 )
 head(df)
 
-setwd("U:/Ola/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/")
+setwd("<datastore_home_dir>/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/")
 dir.create("ont")
-setwd("U:/Ola/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/ont")
+setwd("<datastore_home_dir>/Lab/Smoking/twist_vs_EPIC/Manual_EWAS/ont")
 saveRDS(df, "40_10_5_32_circos_data.RDS", compress=F)
 
 
@@ -156,7 +156,7 @@ SNPs <-  df[
 
 colnames(df) = c("CpG", "Chromosome", "Position", " EPIC", "TWIST", "  ONT")
 saveRDS(df, "40_10_5_32_circos_data_renamed.RDS", compress=F)
-df = readRDS("C:/Users/s1654019/Desktop/40_10_5_32_circos_data_renamed.RDS")
+df = readRDS("<local_home_dir>/Desktop/40_10_5_32_circos_data_renamed.RDS")
 
 
 

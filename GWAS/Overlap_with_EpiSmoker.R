@@ -1,7 +1,7 @@
 library(data.table)
 library(dplyr)
 library(jsonlite)
-setwd('U:/Ola/Lab/Smoking/GWAS/')
+setwd('<datastore_home_dir>/Lab/Smoking/GWAS/')
 
 epismoker_included = read.csv("../EpiSmoker_CPG.csv")
 

@@ -1,9 +1,9 @@
 library(data.table)
 library(dplyr)
 
-setwd("/Cluster_Filespace/Marioni_Group/GS/GS_dataset/")
-path <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/"
-fam <- "/Cluster_Filespace/Marioni_Group/GS/GS_GWAS/GS_GWAS.fam"
+setwd("<filespace_marioni_group_dir>/GS/GS_dataset/")
+path <- "<cluster_home_dir>/Smoking/BayesRR/data/"
+fam <- "<filespace_marioni_group_dir>/GS/GS_GWAS/GS_GWAS.fam"
 type <- "complete"
 
 outlierID <- function(x, cut=4) {
@@ -44,7 +44,7 @@ if (type == "complete") {
 
 }
 if (type == "ASSIGN_W1_W3_W4") {
-  full = read.csv('/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/Full_Dataset.csv') #816 NAs, a bit
+  full = read.csv('<cluster_home_dir>/Smoking/Elnet_EpiScore/data/Full_Dataset.csv') #816 NAs, a bit
 
   # smoking_PCQ$cigarettes_per_day = ifelse(smoking_PCQ$ever_smoke==1 & is.na(smoking_PCQ$cigs_day), smoking_PCQ$packs_day * 20, smoking_PCQ$cigs_day)
   # smoking_PCQ$cigarettes_per_day = ifelse(smoking_PCQ$ever_smoke==2, smoking_PCQ$packs_day * 20, smoking_PCQ$cigs_day)
@@ -231,7 +231,7 @@ if (type == "former_current") {
 
 if (type == "bmi") {
   ### BMI for sensitivity analysis
-  cov=read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/common_covariates.csv")
+  cov=read.csv("<cluster_home_dir>/Smoking/BayesRR/data/common_covariates.csv")
   cov=cov[c(1,3)]
 
   ds=merge(pack_years, cov, by="Sample_Name")

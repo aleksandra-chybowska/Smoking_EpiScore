@@ -2,7 +2,7 @@ library(tidyverse)
 
 # Read in weights of predictors
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Replication/")
+setwd("<cluster_home_dir>/Smoking/Replication/")
 
 predictors = read.csv("Predictors_long.csv")
 mCigarette = subset(predictors, Predictor == "mCigarette")

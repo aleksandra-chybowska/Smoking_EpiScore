@@ -2,7 +2,7 @@ library("stringr")
 library("foreach")
 library("doParallel")
 
-home = "/Cluster_Filespace/Marioni_Group/Ola/"
+home = "<cluster_home_dir>/"
 approach = "normal"
 filename = "pass10_40" 
 #filename = "Covered_annotated"
@@ -110,7 +110,7 @@ if (approach == "parallel") {
     # idx = which(p < 0.05)
     # n = length(idx)
     # cpgs = cpg[idx]
-    # setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS")
+    # setwd("<cluster_home_dir>/ONT/EWAS")
 
     # split_data <- strsplit(cpgs, "-")
     # df <- do.call(rbind, split_data)

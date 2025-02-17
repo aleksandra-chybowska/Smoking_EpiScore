@@ -4,7 +4,7 @@ library(data.table)
 library(CMplot)
 
 #View(gwas_results)
-setwd('/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS')
+setwd('<cluster_home_dir>/Smoking/GWAS')
 
 # grimage 
 # smkinit EUR full
@@ -91,7 +91,7 @@ df = data.frame("SNP" = data$SNP_Grimage,
 saveRDS(df, "CMPlot_data/newest_plus_grimage_EUR_without_UKB.RDS", compress=F)
 
 df = subset(df, Chromosome != "X")
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/plots")
+setwd("<cluster_home_dir>/Smoking/GWAS/plots")
 
 SNPs <-  df[
  df$Grimage < 5e-8 |

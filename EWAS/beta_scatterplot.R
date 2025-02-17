@@ -5,7 +5,7 @@ library(stringr)
 
 # Extract betas from summary statistics of all EWASs
 
-path = '/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/'
+path = '<cluster_home_dir>/TWIST/Manual_EWAS/'
 
 source = '40_10_EWAS'
 twist = read.csv(paste0(path, "pass10_40_46_full_EWAS_TWIST.csv"))
@@ -23,7 +23,7 @@ twist$chr = as.numeric(twist$chr)
 twist = subset(twist, !is.na(chr))
 table(twist$chr)
 
-ont_path = "/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/"
+ont_path = "<cluster_home_dir>/ONT/EWAS/"
 ont = read.csv(paste0(ont_path, "5_40_46_full_EWAS_ONT.csv"))
 ont$study = "ONT"
 ont$chr = str_replace(ont$chr, "chr", "")
@@ -59,9 +59,9 @@ ont$chrpos = paste0(ont$chr, '-', ont$pos)
 
 all = merge(twist, epic, by="chrpos", all = T)
 all = merge(all, ont, by="chrpos", all = T)
-saveRDS(all, "/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/all_5_40_46_new_annots_with_beta.RDS", compress=F)
+saveRDS(all, "<cluster_home_dir>/ONT/EWAS/all_5_40_46_new_annots_with_beta.RDS", compress=F)
 
-all = readRDS("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/all_5_40_new_annots_with_beta.RDS")
+all = readRDS("<cluster_home_dir>/ONT/EWAS/all_5_40_new_annots_with_beta.RDS")
 select_col = function(row, col1, col2, col3) {
   return(dplyr::first(na.omit(c(row[[col1]], row[[col2]], row[[col3]]))))
 }
@@ -75,7 +75,7 @@ df = data.frame("CpG" = apply(all, 1, select_col, "cpg.y", "cpg.x", "cpg"),
 )
 head(df)
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/")
+setwd("<cluster_home_dir>/ONT/EWAS/")
 saveRDS(df, "40_10_40_5_46_plotting_ds_new_annots_betas.RDS", compress=F)
 
 # For the CpG sites available in both platforms, 
@@ -95,7 +95,7 @@ library(patchwork)
 library(cowplot)
 library(data.table)
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/")
+setwd("<cluster_home_dir>/ONT/EWAS/")
 
 all = readRDS("all_5_40_46_new_annots_with_beta.RDS")
 # all = readRDS("40_10_40_5_46_plotting_ds_new_annots_betas.RDS")

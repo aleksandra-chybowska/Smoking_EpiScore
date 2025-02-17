@@ -15,7 +15,7 @@ from statsmodels.graphics.tsaplots import plot_pacf
 from statsmodels.graphics.tsaplots import plot_acf
 import pymc3 as pm3
 import arviz as az
-sys.path.append('/Cluster_Filespace/Marioni_Group/Ola/Code/general/projects/smoking/BayesR/Elena/plots')      
+sys.path.append('<cluster_home_dir>/Code/general/projects/smoking/BayesR/Elena/plots')      
 from plot_funcs import *
 
 # Color palette
@@ -24,7 +24,7 @@ palette = "custom2"
 def flatten(xss):
     return [x for xs in xss for x in xs]
 
-path = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/complete/"
+path = "<cluster_home_dir>/Smoking/BayesRR/results/runs/complete/"
 trait = "pack_years_17865_complete"
 
 # output_dir = path + "plots/sex/"

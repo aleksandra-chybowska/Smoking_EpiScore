@@ -2,7 +2,7 @@ library(methrix)
 library(BSgenome.Hsapiens.UCSC.hg38)
 
 product = "unfiltered"
-path = "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methrix/"
+path = "<cluster_home_dir>/TWIST/Methrix/"
 
 annotate = function(meth) {
   meth_mat_with_loci <- methrix::get_matrix(m = meth, type = "M", add_loci = TRUE, in_granges = TRUE)
@@ -22,7 +22,7 @@ snp_rm = function(meth) {
 }
 
 bdg_files <- list.files(
-  path = '/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methylation',
+  path = '<cluster_home_dir>/TWIST/Methylation',
   pattern = "*bedGraph",
   full.names = TRUE
 )
@@ -198,28 +198,28 @@ if (F)
 pass10_40 <- methrix::remove_snps(m = pass10_40, keep = F)
 
 # 3,173,397
-saveRDS(pass10_40, '/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methrix/10_40_no_snps.RDS', compress=F)
+saveRDS(pass10_40, '<cluster_home_dir>/TWIST/Methrix/10_40_no_snps.RDS', compress=F)
 
 plot = plot_coverage(pass10_40)
-png("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methrix/Plots/coverage_10_40_no_snps.png", width = 1400, height=1400)
+png("<cluster_home_dir>/TWIST/Methrix/Plots/coverage_10_40_no_snps.png", width = 1400, height=1400)
 print(plot)
 dev.off()
 
 plot = plot_coverage(pass10_40, type="dens")
-png("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methrix/Plots/coverage_10_40_no_snps_dens.png", width = 1400, height=1400)
+png("<cluster_home_dir>/TWIST/Methrix/Plots/coverage_10_40_no_snps_dens.png", width = 1400, height=1400)
 print(plot)
 dev.off()
 
 library(data.frame)
 
 meth_stats = get_stats(m = pass10_40)
-fwrite(as.data.frame(meth_stats), file ="/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methrix/pass10_40.csv")
+fwrite(as.data.frame(meth_stats), file ="<cluster_home_dir>/TWIST/Methrix/pass10_40.csv")
 
 meth_mat_with_loci <- methrix::get_matrix(m = pass10_40, type = "M", add_loci = TRUE, in_granges = TRUE)
-saveRDS(meth_mat_with_loci, "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methrix/pass10_40_meth_granges.RDS", compress=FALSE)
+saveRDS(meth_mat_with_loci, "<cluster_home_dir>/TWIST/Methrix/pass10_40_meth_granges.RDS", compress=FALSE)
 
 coverage_mat_with_loci <- methrix::get_matrix(m = pass10_40, type = "C", add_loci = TRUE, in_granges = TRUE)
-saveRDS(coverage_mat_with_loci, "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methrix/pass10_40_cov_granges.RDS", compress=FALSE)
+saveRDS(coverage_mat_with_loci, "<cluster_home_dir>/TWIST/Methrix/pass10_40_cov_granges.RDS", compress=FALSE)
 
 library(Repitools)
 anno = annoGR2DF(meth_mat_with_loci)
@@ -229,7 +229,7 @@ head(colnames(anno))
 library(stringr)
 colnames(anno) = str_replace(colnames(anno), ".markdup.sorted_CpG.bedGraph", "")
 
-saveRDS(anno, "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Methrix/processed.RDS", compress=FALSE)
+saveRDS(anno, "<cluster_home_dir>/TWIST/Methrix/processed.RDS", compress=FALSE)
 
 #colnames(anno) = str_replace(colnames(anno), "X", "")
 # > dim(anno)

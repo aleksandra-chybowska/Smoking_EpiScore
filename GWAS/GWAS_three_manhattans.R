@@ -4,7 +4,7 @@ library(data.table)
 library(CMplot)
 
 #View(gwas_results)
-setwd('/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS')
+setwd('<cluster_home_dir>/Smoking/GWAS')
 tpy = 'transformed_pack_years_overlap/outfile.fastGWA'
 largest_py = 'largest_gwas_pack_years/ErzurumluogluAM_30617275_discovery-stage_meta-analysis_PackYears.txt'
 epismoker = 'epismoker_overlap/outfile.fastGWA'
@@ -26,7 +26,7 @@ min_grimage_res = grimage_res[c("SNP", "BETA", "CHR", "POS", "P", "STUDY")]
 min_grimage_res = merge(min_grimage_res, anno, by.x="SNP", by.y="V8", all.x = T)
 
 grimage_sig = subset(min_grimage_res, P<5e-8)
-write_csv(grimage_sig, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/Grimage_sig_snps.csv")
+write_csv(grimage_sig, "<cluster_home_dir>/Smoking/GWAS/Grimage_sig_snps.csv")
 
 min_grimage_res$SNP = ifelse(is.na(min_grimage_res$V2), min_grimage_res$SNP, min_grimage_res$V2)
 min_grimage_res
@@ -77,8 +77,8 @@ df = data.frame("SNP" = data$SNP_EpiSmokEr,
 
 
 
-saveRDS(df, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/no_filtering.RDS", compress=F)
-df = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/four.RDS")
+saveRDS(df, "<cluster_home_dir>/Smoking/GWAS/CMPlot_data/no_filtering.RDS", compress=F)
+df = readRDS("<cluster_home_dir>/Smoking/GWAS/CMPlot_data/four.RDS")
 df = subset(df, Chromosome != "X")
 SNPs <-  df[
   df$EpiSmoker < 5e-8 |
@@ -90,7 +90,7 @@ SNPs <-  df[
  df$Largest < 5e-8 |
  df$Grimage < 5e-8, 1]
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/plots")
+setwd("<cluster_home_dir>/Smoking/GWAS/plots")
 
 CMplot(df,type="p",plot.type="m",LOG10=TRUE,highlight.type="l",highlight=SNPs,
        threshold=5e-8,threshold.col="black",threshold.lty=1,col=c("grey60","#4197d8"),
@@ -119,8 +119,8 @@ CMplot(df,type="p",plot.type="m",LOG10=TRUE,highlight.type="l",highlight=SNPs,
 
 # Figure 5
 
-setwd('/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS')
-df = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/four.RDS")
+setwd('<cluster_home_dir>/Smoking/GWAS')
+df = readRDS("<cluster_home_dir>/Smoking/GWAS/CMPlot_data/four.RDS")
 df = df %>% select(-EpiSmoker)
 SNPs <-  df[ 
   !is.na(df$Chromosome) &
@@ -132,8 +132,8 @@ SNPs = SNPs[SNPs != "-"]
 
 colnames(df) = c("CpG", "Chromosome", "Position", "  Pack Years", "Erzurumluoglu et al.", "Grimage Pack Years")
 df_05suggestive = df %>% filter(df[,4] < 1e-5 | df[,5] < 1e-5 | df[,6] < 1e-5)
-saveRDS(df_05suggestive, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/Figure_5_source_data.RDS")
-write.csv(df_05suggestive, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/Figure_5_source_data.csv")
+saveRDS(df_05suggestive, "<cluster_home_dir>/Smoking/GWAS/CMPlot_data/Figure_5_source_data.RDS")
+write.csv(df_05suggestive, "<cluster_home_dir>/Smoking/GWAS/CMPlot_data/Figure_5_source_data.csv")
 
 CMplot(df,type="p",plot.type="m",LOG10=TRUE,highlight.type="l",highlight=SNPs,
        threshold=c(1e-5, 5e-8),threshold.col="black",threshold.lty=1,col=c("grey60","#4197d8"),
@@ -149,10 +149,10 @@ suggestive <-  subset(df,
  df$Largest < 1e-5 |
  df$Grimage < 1e-5)
 
-write.csv(suggestive, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/Grimage_suggestive_snps_full.csv")
+write.csv(suggestive, "<cluster_home_dir>/Smoking/GWAS/Grimage_suggestive_snps_full.csv")
 
-results_table = read_csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/Grimage_suggestive_snps_full.csv")
+results_table = read_csv("<cluster_home_dir>/Smoking/GWAS/Grimage_suggestive_snps_full.csv")
 results_table = results_table[-c(1,5)]
 df = results_table %>% arrange(Largest, Transformed_Pack_Years, Grimage)
 
-write.csv(df, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/Grimage_suggestive_snps_full.csv")
+write.csv(df, "<cluster_home_dir>/Smoking/GWAS/Grimage_suggestive_snps_full.csv")

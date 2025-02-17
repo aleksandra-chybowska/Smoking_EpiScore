@@ -2,8 +2,8 @@ library("stringr")
 library("foreach")
 library("doParallel")
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/methrix")
-home = "/Cluster_Filespace/Marioni_Group/Ola/"
+setwd("<cluster_home_dir>/ONT/methrix")
+home = "<cluster_home_dir>/"
 approach = "normal"
 filename = "5_40" 
 
@@ -102,7 +102,7 @@ if (approach == "parallel") {
     # idx = which(p < 0.05)
     # n = length(idx)
     # cpgs = cpg[idx]
-    # setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS")
+    # setwd("<cluster_home_dir>/ONT/EWAS")
 
     # split_data <- strsplit(cpgs, "-")
     # df <- do.call(rbind, split_data)

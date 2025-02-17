@@ -1,6 +1,6 @@
 library(dplyr)
 
-setwd("/Cluster_Filespace/Marioni_Group/GS/GS_dataset/")
+setwd("<filespace_marioni_group_dir>/GS/GS_dataset/")
 
 transform <- function(x) {
   transformed <- qnorm((rank(x,na.last="keep")-0.5)/sum(!is.na(x)))
@@ -18,10 +18,10 @@ outlierTrim <- function(x, cut=4) {
   retval <- ifelse(id, NA, x)
 }
 
-path = "/Cluster_Filespace/Marioni_Group/Ola/Smoking/"
+path = "<cluster_home_dir>/Smoking/"
 samps = readRDS("../GS_methylation/GS20k/GS20k_Targets.rds")
-epismk = read.csv("/Cluster_Filespace/Marioni_Group/Rob/EWAS_Disease_GS/epismoker_20k.csv")
-grimage = read.csv("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/GS_20k_DNAmAge.csv")
+epismk = read.csv("<filespace_marioni_group_dir>/Rob/EWAS_Disease_GS/epismoker_20k.csv")
+grimage = read.csv("<filespace_marioni_group_dir>/GS/GS_methylation/GS_20k_DNAmAge.csv")
 grimage = grimage[c("SampleID", "DNAmPACKYRS")]
 
 
@@ -34,12 +34,12 @@ table(is.na(grimage$DNAmPACKYRS))
 grimage = subset(grimage, !is.na(grimage$DNAmPACKYRS))
 head(grimage)
 
-py = read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_17865_complete.csv")
+py = read.csv("<cluster_home_dir>/Smoking/BayesRR/data/pack_years_17865_complete.csv")
 min_epismoker = select(epismoker, c("Sample_Sentrix_ID", "smokingScore"))
 min_grimage <- select(grimage, c("Sample_Sentrix_ID", "DNAmPACKYRS"))
 py$inrt_py = outlierTrim(transform(py$pack_years))
 
-pdf("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/inrt_py.pdf")
+pdf("<cluster_home_dir>/Smoking/GWAS/inrt_py.pdf")
 hist(py$inrt_py)
 dev.off()
 
@@ -49,7 +49,7 @@ head(pheno)
 dim(pheno)
 # 17136     9
 
-PCS = read.csv('/Cluster_Filespace/Marioni_Group/GS/GS_dataset/GS20K_ALL_MAF5_PCA.eigenvec', sep=' ', header = FALSE)
+PCS = read.csv('<filespace_marioni_group_dir>/GS/GS_dataset/GS20K_ALL_MAF5_PCA.eigenvec', sep=' ', header = FALSE)
 colnames(PCS) = c("FID", "IID", paste0("PC", 1:20))
 pheno = merge(PCS, pheno, by.x = "IID", by.y = "Sample_Name",)
 # 17130
@@ -77,7 +77,7 @@ table(is.na(pheno_epismoker))
 table(is.na(pheno_grimage))
 table(is.na(pheno_transformed))
 pheno_transformed = na.omit(pheno_transformed)
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/")
+setwd("<cluster_home_dir>/Smoking/GWAS/")
 write.table(pheno_py, file="transformed_pack_years_overlap/transformed_pack_years_overlap_17130.phen", sep='\t', row.names=F, quote=F, col.names=F)
 write.table(pheno_py[,c("IID", "IID")], file="transformed_pack_years_overlap/samps.txt", sep='\t', col.names=F, row.names=F, quote=F)
 write.table(qcovar, file="transformed_pack_years_overlap/qcovar_17130.phen", sep='\t', row.names=F, quote=F, col.names=F)

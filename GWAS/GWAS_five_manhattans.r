@@ -5,7 +5,7 @@ library(data.table)
 library(CMplot)
 
 #View(gwas_results)
-setwd('/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS')
+setwd('<cluster_home_dir>/Smoking/GWAS')
 tpy = 'transformed_pack_years_overlap/outfile.fastGWA'
 largest_py = 'largest_gwas_pack_years/ErzurumluogluAM_30617275_discovery-stage_meta-analysis_PackYears.txt'
 epismoker = 'epismoker_overlap/outfile.fastGWA'
@@ -82,10 +82,10 @@ df = data.frame("SNP" = data$SNP_EpiSmokEr,
                 "Inverse_transformed" = data$P_inrt
 )
 
-saveRDS(df, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/five.RDS", compress=F)
-df = readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/CMPlot_data/five.RDS")
+saveRDS(df, "<cluster_home_dir>/Smoking/GWAS/CMPlot_data/five.RDS", compress=F)
+df = readRDS("<cluster_home_dir>/Smoking/GWAS/CMPlot_data/five.RDS")
 df = subset(df, Chromosome != "X")
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/plots")
+setwd("<cluster_home_dir>/Smoking/GWAS/plots")
 
 df2 = df[c("SNP", "Chromosome", "Position", "EpiSmoker", "Largest", "Inverse_transformed")]
 SNPs <-  df2[
@@ -126,4 +126,4 @@ CMplot(df,type="p",plot.type="m",LOG10=TRUE,highlight.type="l",highlight=SNPs,
 # 6 ALGA0000047          1   761957 0.9174565 0.05753712 0.05753712
 
 significant = subset(df, EpiSmoker < 5e-8 | Largest < 5e-8 | Inverse_transformed < 5e-8 | Raw < 5e-8 | Transformed_Pack_Years < 5e-8)
-write.csv(significant, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/GWAS/three/five_significant.csv")
+write.csv(significant, "<cluster_home_dir>/Smoking/GWAS/three/five_significant.csv")

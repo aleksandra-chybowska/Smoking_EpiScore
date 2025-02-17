@@ -23,7 +23,7 @@
 # library(EpiSmokEr)
 
 # Set working directory
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Replication")
+setwd("<cluster_home_dir>/Smoking/Replication")
 
 #####################################################
 ######## 1. Create functions for tidying data #######
@@ -47,9 +47,9 @@ na_to_mean <-function(methyl){
 #####################################
 
 # Methylation dataframe 
-data = readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds") # Of note, this example is a very truncated dataframe and most CpGs will be missing, please input your typical methylation dataframe here (all available CpGs)
+data = readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/LBC_betas_3489_bloodonly.rds") # Of note, this example is a very truncated dataframe and most CpGs will be missing, please input your typical methylation dataframe here (all available CpGs)
 data = as.data.frame(data, check.names=F)
-target = readRDS("/Cluster_Filespace/Marioni_Group/LBC/LBC_methylation/targets_3489_bloodonly.rds")
+target = readRDS("<filespace_marioni_group_dir>/LBC/LBC_methylation/targets_3489_bloodonly.rds")
 rownames(target) <- target$Basename
 target <- target[target["cohort"] == "LBC36" ,] # 2797, waves 1, 2, 3, and 4
 target <- subset(target, WAVE==1)

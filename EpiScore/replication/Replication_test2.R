@@ -34,7 +34,7 @@ roc_to_df <- function(mod, roc) {
 #### 1. Read in scores from Script 1 - to merge in at end  ######
 #################################################################
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Replication")
+setwd("<cluster_home_dir>/Smoking/Replication")
 # Read in previous scores
 pheno = read.csv("smoking_scores.csv")
 scores = c("mCigarette", "McCartney.et.al.", "Trejo.et.al.", "EpiSmokEr")

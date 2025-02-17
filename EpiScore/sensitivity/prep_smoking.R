@@ -1,9 +1,9 @@
-# original source /Cluster_Filespace/Marioni_Group/Daniel_TB_Lausanne/GS/final_smoking_GS_nr.history
+# original source <filespace_marioni_group_dir>/Daniel_TB_Lausanne/GS/final_smoking_GS_nr.history
 
-load("/Cluster_Filespace/Marioni_Group/Daniel_TB_Lausanne/GS/GS_variables_for_DanielT_26Feb2018_v2.RData")
-load("/Cluster_Filespace/Marioni_Group/Daniel_TB_Lausanne/GS/SNPMX_input.RData")
+load("<filespace_marioni_group_dir>/Daniel_TB_Lausanne/GS/GS_variables_for_DanielT_26Feb2018_v2.RData")
+load("<filespace_marioni_group_dir>/Daniel_TB_Lausanne/GS/SNPMX_input.RData")
 X<-merge(SNPMX,data[,c("Methylation_ID","pack_years","GWAS_ID")],by.x="row.names",by.y="Methylation_ID")
-ids <- read.table("/Cluster_Filespace/Marioni_Group/Daniel_TB_Lausanne/GS/GWAS_plink_files/GS20K_QCpsychprotocol_SPH_04112015_rel0.025_meth.grm.id", header=F)
+ids <- read.table("<filespace_marioni_group_dir>/Daniel_TB_Lausanne/GS/GWAS_plink_files/GS20K_QCpsychprotocol_SPH_04112015_rel0.025_meth.grm.id", header=F)
 X <- X[X$GWAS_ID %in% ids$V2,]
 rownames(X)<-X$Row.names
 Y<-X$pack_years.y

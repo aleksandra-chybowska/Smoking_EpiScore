@@ -1,7 +1,7 @@
-#cd /Cluster_Filespace/Marioni_Group/Anna/Brain_methylation/
+#cd <filespace_marioni_group_dir>/Anna/Brain_methylation/
 
 ### Move to R ###
-setwd("/Cluster_Filespace/Marioni_Group/Anna/Brain_methylation/")
+setwd("<filespace_marioni_group_dir>/Anna/Brain_methylation/")
 dat = readRDS("Normalised_Beta_Values_danet.rds")
 descriptions = readRDS("descriptions.rds") # According to this file, this patient does not have HC data: LBC360666
 
@@ -11,7 +11,7 @@ identical(rownames(descriptions), rownames(dat))
 dat <- merge(descriptions, dat, by="row.names")
 
 library("foreign")
-ph36 <- read.spss("/Cluster_Filespace/Marioni_Group/Riccardo/Cognitive_EWAS_GS_LBC/LBC1936_BloodBasedEWASofCognitiveAbilities_RM_06MAY2021.sav", to.data.frame=T, use.value.labels=F)
+ph36 <- read.spss("<filespace_marioni_group_dir>/Riccardo/Cognitive_EWAS_GS_LBC/LBC1936_BloodBasedEWASofCognitiveAbilities_RM_06MAY2021.sav", to.data.frame=T, use.value.labels=F)
 ph361 <- ph36[,c(1,12)]
 names(ph361)[1] <- "LBC_ID"
 
@@ -36,11 +36,11 @@ hc_interesting = hc[c("LBC_ID", "smokcat_w1",
 	"cg09558034", "cg26381592", "cg10372485", 
 	"cg10892497", "cg08545123", "cg05575921")]
 
-saveRDS(hc_interesting, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/hc_interesting.R")
-saveRDS(record_list, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/AHRR_record_list.R", compress=F)
+saveRDS(hc_interesting, "<cluster_home_dir>/Smoking/Brain_vs_Blood/hc_interesting.R")
+saveRDS(record_list, "<cluster_home_dir>/Smoking/Brain_vs_Blood/AHRR_record_list.R", compress=F)
 
 ### AHRR plots ###
-pdf(file="/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/AHRR.pdf")
+pdf(file="<cluster_home_dir>/Smoking/Brain_vs_Blood/AHRR.pdf")
 par(mfrow=c(2,3))
 	plot(hc$cg05575921 ~ hc$smokcat_w1)
 	plot(pfc$cg05575921 ~ pfc$smokcat_w1)
@@ -109,7 +109,7 @@ results_ba2021 = data.frame(
 	"ba2021_p" = ba2021_p,
 	"ba2021_cg" = ba2021_cg
 )
-path <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Brain_vs_Blood/"
+path <- "<cluster_home_dir>/Smoking/Brain_vs_Blood/"
 saveRDS(results_hc, paste0(path, "results_hc.RDS"), compress=F)
 saveRDS(results_pfc, paste0(path, "results_pfc.RDS"), compress=F)
 saveRDS(results_ba17, paste0(path, "results_ba17.RDS"), compress=F)
@@ -130,8 +130,8 @@ cpgs <- names(hc)[tmp]
 
 cpgs_from_hc = hc[tmp]
 cpgs_from_hc$smoking_cat = hc$smokcat_w1
-#saveRDS(cpgs_from_hc, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Plots/HC.RDS")
-pdf(file="/Cluster_Filespace/Marioni_Group/Ola/Smoking/Plots/HC.pdf")
+#saveRDS(cpgs_from_hc, "<cluster_home_dir>/Smoking/Plots/HC.RDS")
+pdf(file="<cluster_home_dir>/Smoking/Plots/HC.pdf")
 par(mfrow=c(2,3))
 for(i in 1:sig1){
 plot(hc[,sig11[i] + 21] ~ hc$smokcat_w1, main=cpgs[i])

@@ -1,8 +1,8 @@
 library(tidyverse)
 
-setwd('U:/Ola/Lab/Smoking/GWAS/FUMA_grimage')
+setwd('<datastore_home_dir>/Lab/Smoking/GWAS/FUMA_grimage')
 
-annots = fread('C:/Users/s1654019/Desktop/anno_full.csv')
+annots = fread('<local_home_dir>/Desktop/anno_full.csv')
 annots = annots[,c("V2", "V8")]
 colnames(annots) = c("rsID", "GSID")
 

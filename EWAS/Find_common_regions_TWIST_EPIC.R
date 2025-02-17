@@ -55,7 +55,7 @@ if (examine_regions == "TWIST") {
 
 if (examine_regions == "EPIC") {
 
-	anno = readRDS("/Cluster_Filespace/Marioni_Group/Daniel/EPIC_AnnotationObject_df.rds")
+	anno = readRDS("<filespace_marioni_group_dir>/Daniel/EPIC_AnnotationObject_df.rds")
 	anno = anno[c(1,2,3,18,22,30,31,32,38,40]) # only interesting cols
 	# cpg coords don't match, maybe wrong version of the reference genome
 

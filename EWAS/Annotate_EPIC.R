@@ -1,12 +1,12 @@
-path = "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Annotations/"
+path = "<cluster_home_dir>/TWIST/Annotations/"
 bed_src = "covered_targets_Twist_Methylome_hg38_annotated_separated.bed"
 annots_src = "infinium-methylationepic-v-1-0-b5-manifest-file-from-Illumina.csv"
-W3_path = "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/W3_46.csv"
+W3_path = "<cluster_home_dir>/TWIST/Manual_EWAS/W3_46.csv"
 
-# path = "U:/Ola/Lab/Smoking/TWIST/annotations/"
+# path = "<datastore_home_dir>/Lab/Smoking/TWIST/annotations/"
 # bed_src = "covered_targets_Twist_Methylome_hg38_annotated_separated.bed"
 # annots_src = "EPIC.hg38.manifest.tsv"
-# W3_path = "U:/Ola/Lab/Smoking/twist_vs_EPIC/W3.csv"
+# W3_path = "<datastore_home_dir>/Lab/Smoking/twist_vs_EPIC/W3.csv"
 
 bed = read.table(paste0(path, bed_src), header = FALSE, sep="\t",stringsAsFactors=FALSE, quote="")
 bed = as.data.frame(bed)
@@ -22,7 +22,7 @@ merged = cbind(merged[1:8], merged[56:58])
 merged$chromosome = merged$CHR_hg38
 merged$position = merged$Start_hg38
 
-write.csv(merged, "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/W3_46_processed_new_annots.csv")
+write.csv(merged, "<cluster_home_dir>/TWIST/Manual_EWAS/W3_46_processed_new_annots.csv")
 
 ### for FUMA
 
@@ -38,11 +38,11 @@ extract_gene_id = function(all_genes) {
   return(all_genes)
 }
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Annotations/")
+setwd("<cluster_home_dir>/TWIST/Annotations/")
 otherEPIC <- read.csv("infinium-methylationepic-v-1-0-b5-manifest-file-from-Illumina.csv")
 anno <- otherEPIC[c("CHR_hg38","Name", "Start_hg38","UCSC_RefGene_Name", "Strand_hg38")]
 
-w3 <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/W3.csv") 
+w3 <- read.csv("<cluster_home_dir>/TWIST/Manual_EWAS/W3.csv") 
 head(w3)
 
 ewas_significant = subset(ewas, ewas$pval < 1e-5) # 97

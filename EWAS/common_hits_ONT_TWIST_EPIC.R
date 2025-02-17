@@ -7,10 +7,10 @@ library("minfi")
 library("IlluminaHumanMethylationEPICanno.ilm10b5.hg38")
 
 annEPIC <- getAnnotation(IlluminaHumanMethylationEPICanno.ilm10b5.hg38)
-saveRDS(annEPIC, "/Cluster_Filespace/Marioni_Group/Ola/TWIST/Annotations/IlluminaHumanMethylationEPICanno.ilm10b5.hg38.RDS", compress = F)
+saveRDS(annEPIC, "<cluster_home_dir>/TWIST/Annotations/IlluminaHumanMethylationEPICanno.ilm10b5.hg38.RDS", compress = F)
 
-otherEPIC <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Annotations/infinium-methylationepic-v-1-0-b5-manifest-file.csv")
-ourEPICpath <-"/Cluster_Filespace/Marioni_Group/Ola/TWIST/Manual_EWAS/EPIC.hg38.manifest.tsv"
+otherEPIC <- read.csv("<cluster_home_dir>/TWIST/Annotations/infinium-methylationepic-v-1-0-b5-manifest-file.csv")
+ourEPICpath <-"<cluster_home_dir>/TWIST/Manual_EWAS/EPIC.hg38.manifest.tsv"
 ourEPIC <- read.table(ourEPICpath, header = TRUE, sep="\t",stringsAsFactors=FALSE, quote="")
 
 # according to TWIST bed cg14817997 maps to  chr1:10524-10526
@@ -34,7 +34,7 @@ wrong = subset(df, Start_hg38 != CpG_beg) #  1436
 # TWIST
 library(data.table)
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/TWIST/Annotations/")
+setwd("<cluster_home_dir>/TWIST/Annotations/")
 bed = fread("covered_targets_Twist_Methylome_hg38_annotated_separated.bed")
 colnames(bed) = c("chr", "start", "stop", "cpg")
 
@@ -51,7 +51,7 @@ on_illumina_2 = subset(df, CpG %like% "cg") # 10
 
 ######################################
 ## new file for ONT
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS/")
+setwd("<cluster_home_dir>/ONT/EWAS/")
 hits_ont = readRDS("40_10_40_5_plotting_ds_new_annots_46_samples.RDS")
 df_ont = subset(hits_ont, TWIST < 1e-5)
 
@@ -63,7 +63,7 @@ on_illumina_ont = subset(df_ont, CpG %like% "cg") #3
 ######################################
 ## overlap
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/EWAS")
+setwd("<cluster_home_dir>/ONT/EWAS")
 ewas = readRDS("40_10_40_5_plotting_ds_new_annots_46_samples.RDS")
 t_top = 3.6e-8
 t = 1e-5

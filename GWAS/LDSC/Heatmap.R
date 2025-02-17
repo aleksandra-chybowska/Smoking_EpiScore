@@ -38,7 +38,7 @@ bind_rg_tables_by_gwas_type = function(ds, gwas_type) {
   return(cbind(ds1, ds2))
 }
 
-setwd("U:/Ola/Lab/Smoking/LDSC/")
+setwd("<datastore_home_dir>/Lab/Smoking/LDSC/")
 
 rg_table = read_csv("All_merged_ldsc_hg19.csv") %>% 
   rename(pheno_1 = "min_pheno_1", 

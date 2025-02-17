@@ -24,7 +24,7 @@ if (!requireNamespace("GenomicScores")) {
 library("Repitools")
 library("BSgenome.Hsapiens.UCSC.hg38")
 
-setwd("/Cluster_Filespace/Marioni_Group/Ola/ONT/final_bedgraphs")
+setwd("<cluster_home_dir>/ONT/final_bedgraphs")
 
 bdg_files <- list.files(
   path = ".",

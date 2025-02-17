@@ -7,10 +7,10 @@ library("foreach")
 library("doParallel")
 library("glmnet")
 
-datadir <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/"
-results <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/results/score_over_n_alcohol/"
-alcohol <- read.delim("/Cluster_Filespace/Marioni_Group/Elena/alcohol_consumption/data/alcohol_16717.tsv")
-phenotype <- "/Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_17865_complete.csv"
+datadir <- "<cluster_home_dir>/Smoking/Elnet_EpiScore/data/"
+results <- "<cluster_home_dir>/Smoking/Elnet_EpiScore/results/score_over_n_alcohol/"
+alcohol <- read.delim("<filespace_marioni_group_dir>/Elena/alcohol_consumption/data/alcohol_16717.tsv")
+phenotype <- "<cluster_home_dir>/Smoking/BayesRR/data/pack_years_17865_complete.csv"
 residualise <- TRUE
 raw_data <- TRUE
 gs_wave <- "W1_W3_W4"
@@ -26,9 +26,9 @@ meanimpute <- function(x) ifelse(is.na(x),mean(x,na.rm=T),x)
 ## Import data
 ##########################################################################
 if (raw_data == TRUE) {
-  meth <- readRDS("/Local_Data/methylation/GS_20k/mvals.rds") # p17
-  #target <- readRDS("/Local_Data/methylation/GS_20k/GS20k_Targets_18869.rds")
-  target <- readRDS("/Cluster_Filespace/Marioni_Group/GS/GS_methylation/GS20k/GS20k_Targets.rds")
+  meth <- readRDS("<local_data_dir>/methylation/GS_20k/mvals.rds") # p17
+  #target <- readRDS("<local_data_dir>/methylation/GS_20k/GS20k_Targets_18869.rds")
+  target <- readRDS("<filespace_marioni_group_dir>/GS/GS_methylation/GS20k/GS20k_Targets.rds")
 
   meth <- meth[,target$Sample_Sentrix_ID]
   meth <- as.data.frame(meth)
@@ -36,25 +36,25 @@ if (raw_data == TRUE) {
 
   #colnames - people 
 
-  probes <- read.table("/Cluster_Filespace/Marioni_Group/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)$V1
+  probes <- read.table("<filespace_marioni_group_dir>/Elena/gs_osca/data/cpgs_tokeep.txt", header=F)$V1
   meth <- meth[probes, ] # 752722  18869
 
-  # anno <- readRDS("/Cluster_Filespace/Marioni_Group/Daniel/EPIC_AnnotationObject_df.rds")
+  # anno <- readRDS("<filespace_marioni_group_dir>/Daniel/EPIC_AnnotationObject_df.rds")
   # common_anno <- anno[which(anno$Methyl450_Loci == "TRUE"),]
   # meth <- meth[rownames(meth) %in% rownames(common_anno), ] # 17758  9039 CpGs left
   gc()
 
   # Pre-filtering by weight
-  weights <- read.csv("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/weights/alcohol_ewas_Dugue.csv")
+  weights <- read.csv("<cluster_home_dir>/Smoking/Elnet_EpiScore/data/weights/alcohol_ewas_Dugue.csv")
   print(dim(weights))
   weights <- weights[c("CpG")] # 16113 for alcohol    2 # Used to say "effect" here
   meth <- meth[rownames(meth) %in% weights$CpG, ] #  8982 18869
   gc()
 
-saveRDS(meth, "/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/20k_mvals_filtered_by_weight_alcohol.RDS", compress=F)
+saveRDS(meth, "<cluster_home_dir>/Smoking/Elnet_EpiScore/data/20k_mvals_filtered_by_weight_alcohol.RDS", compress=F)
 
 } else {
-  meth = readRDS('/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/20k_mvals_filtered_by_weight_alcohol.RDS')
+  meth = readRDS('<cluster_home_dir>/Smoking/Elnet_EpiScore/data/20k_mvals_filtered_by_weight_alcohol.RDS')
 }
 phenotype <- alcohol
 colnames(phenotype)[2] = "Sample_Sentrix_ID"
@@ -80,7 +80,7 @@ table(rownames(phenotype)==colnames(meth))
 table(is.na(meth))
 
 # saveRDS(meth, paste0(datadir, "20k_before_res.RDS"), compress=F)
-#meth <- readRDS("/Cluster_Filespace/Marioni_Group/Ola/Smoking/Elnet_EpiScore/data/20k_before_res.RDSFALSE")
+#meth <- readRDS("<cluster_home_dir>/Smoking/Elnet_EpiScore/data/20k_before_res.RDSFALSE")
 
 if(residualise == T) {
   design.resid <- model.matrix(~as.factor(sex) + age + as.factor(Set) , data=phenotype)

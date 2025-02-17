@@ -7,11 +7,11 @@
 ############################################################################
 
 # use screen -S W3
-cd /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/wave3_age_sex/methylation/
+cd <cluster_home_dir>/Smoking/BayesRR/results/runs/wave3_age_sex/methylation/
 
-/Cluster_Filespace/Marioni_Group/BayesRRcmd/src/brr \
---data-file /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/multiomics/pack_years_W3_4375_agesex_meth_only_processed.csv \
---pheno /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_wave3_genetic_age_sex_4375_not_residualized.csvphen \
+<filespace_marioni_group_dir>/BayesRRcmd/src/brr \
+--data-file <cluster_home_dir>/Smoking/BayesRR/data/multiomics/pack_years_W3_4375_agesex_meth_only_processed.csv \
+--pheno <cluster_home_dir>/Smoking/BayesRR/data/pack_years_wave3_genetic_age_sex_4375_not_residualized.csvphen \
 --analysis-type preprocess \
 --thread 24 \
 --thread-spawned 24 \
@@ -19,9 +19,9 @@ cd /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/wave3_age_s
 --seed 1 > 20230428_pack_years_w3_preprocess.txt
 
 
-/Cluster_Filespace/Marioni_Group/BayesRRcmd/src/brr \
---data-file /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/multiomics/pack_years_W3_4375_agesex_meth_only_processed.csv \
---pheno /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_wave3_genetic_age_sex_4375_not_residualized.csvphen \
+<filespace_marioni_group_dir>/BayesRRcmd/src/brr \
+--data-file <cluster_home_dir>/Smoking/BayesRR/data/multiomics/pack_years_W3_4375_agesex_meth_only_processed.csv \
+--pheno <cluster_home_dir>/Smoking/BayesRR/data/pack_years_wave3_genetic_age_sex_4375_not_residualized.csvphen \
 --analysis-type ppbayes \
 --chain-length 20000 \
 --burn-in 10000 \
@@ -36,23 +36,23 @@ cd /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/wave3_age_s
 ## with covariates - wbc
 
 # use screen -S W3
-cd /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/results/runs/white_blood_cells_complete/
+cd <cluster_home_dir>/Smoking/BayesRR/results/runs/white_blood_cells_complete/
 
-/Cluster_Filespace/Marioni_Group/BayesRRcmd/src/brr \
---fixed_effects /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/basic_pack_years_cov.csv \
+<filespace_marioni_group_dir>/BayesRRcmd/src/brr \
+--fixed_effects <cluster_home_dir>/Smoking/BayesRR/data/basic_pack_years_cov.csv \
 --fixedEffectNumber 5 \
---data-file /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/methylation_complete/GS20k_allchrom.csv \
---pheno /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_complete_17865_residualized.csvphen \
+--data-file <cluster_home_dir>/Smoking/BayesRR/data/methylation_complete/GS20k_allchrom.csv \
+--pheno <cluster_home_dir>/Smoking/BayesRR/data/pack_years_complete_17865_residualized.csvphen \
 --analysis-type preprocess \
 --thread 24 \
 --thread-spawned 24 \
 --marker-cache \
 --seed 3 > 20240819_pack_years_complete_preprocess.txt
 
-/Cluster_Filespace/Marioni_Group/BayesRRcmd/src/brr \
---data-file /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/methylation_complete/GS20k_allchrom.csv \
---pheno /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/pack_years_complete_17865_residualized.csvphen \
---fixed_effects /Cluster_Filespace/Marioni_Group/Ola/Smoking/BayesRR/data/basic_pack_years_cov.csv \
+<filespace_marioni_group_dir>/BayesRRcmd/src/brr \
+--data-file <cluster_home_dir>/Smoking/BayesRR/data/methylation_complete/GS20k_allchrom.csv \
+--pheno <cluster_home_dir>/Smoking/BayesRR/data/pack_years_complete_17865_residualized.csvphen \
+--fixed_effects <cluster_home_dir>/Smoking/BayesRR/data/basic_pack_years_cov.csv \
 --fixedEffectNumber 5 \
 --analysis-type ppbayes \
 --chain-length 10000 \

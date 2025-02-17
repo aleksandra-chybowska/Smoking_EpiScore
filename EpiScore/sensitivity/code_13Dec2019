@@ -1,7 +1,7 @@
 ### load in the BayesR weights - do one at a time as object has same name in both files (meanBetas) ###
 
-#load("/Cluster_Filespace/Marioni_Group/Daniel_TB_Lausanne/GS_10K/bmi_smoking_pc/meanModelBMI.RData")
-load("/Cluster_Filespace/Marioni_Group/Daniel_TB_Lausanne/GS_10K/bmi_smoking_pc/meanModelSM.RData")
+#load("<filespace_marioni_group_dir>/Daniel_TB_Lausanne/GS_10K/bmi_smoking_pc/meanModelBMI.RData")
+load("<filespace_marioni_group_dir>/Daniel_TB_Lausanne/GS_10K/bmi_smoking_pc/meanModelSM.RData")
 
 ### load LBC target file ###
 
@@ -45,7 +45,7 @@ d36 <- merge(d36_w1, pred, by="Basename")
 #save(d36, file="BayesR_LBC36_w1_smk_bmi_13Dec2019.RData")
 
 library("foreign")
-pheno <- read.spss("/Cluster_Filespace/Marioni_Group/Anna/DNAm phenoAge/LBC1936_PheWAS_Ageing_Multi_omics_factor_analysis_RM_06APR2018.sav", to.data.frame=T)
+pheno <- read.spss("<filespace_marioni_group_dir>/Anna/DNAm phenoAge/LBC1936_PheWAS_Ageing_Multi_omics_factor_analysis_RM_06APR2018.sav", to.data.frame=T)
 
 ph <- pheno[,c("lbc36no","fev_w1","height_w1","bmi_w1","bld_triglyc_w1","bld_hdlchol_w1","smokcat_w1")]
 ph$lbc36no <- gsub(" ", "", ph$lbc36no)
